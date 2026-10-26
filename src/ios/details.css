@@ -46,6 +46,11 @@
   background: #fffdf8;
   line-height: 1.5;
 }
+.ios18 .native-note-paper .detail-body {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #1c1c1e;
+}
 .ios18 .native-note-paper > time {
   display: block;
   text-align: center;
