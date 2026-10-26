@@ -636,7 +636,30 @@ function PhoneRuntime({
                     (i) => i.id === s.incomingCall?.target,
                   );
                   return record?.kind === "audio" && safeMedia(record.media) ? (
-                    <audio controls src={safeMedia(record.media)} />
+                    <div className="answered-call-media">
+                      <audio
+                        autoPlay
+                        controls
+                        src={safeMedia(record.media)}
+                        onEnded={() => {
+                          const call = runtimeRef.current.incomingCall;
+                          if (call)
+                            update(
+                              dispatch(
+                                work,
+                                { ...runtimeRef.current, incomingCall: null },
+                                "callEnded",
+                                call.target || call.caller,
+                              ),
+                            );
+                        }}
+                      />
+                      {record.caption && (
+                        <p className="answered-call-caption">
+                          {record.caption}
+                        </p>
+                      )}
+                    </div>
                   ) : (
                     <p>这是一通虚构来电。</p>
                   );

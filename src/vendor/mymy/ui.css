@@ -459,6 +459,19 @@
   align-items: center;
   justify-content: center;
 }
+.mymy-ui .kzkdots {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 4px;
+}
+.mymy-ui .kzkdots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f0562f;
+  display: inline-block;
+}
 .mymy-ui .kzknv {
   position: absolute;
   left: 0;

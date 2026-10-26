@@ -680,3 +680,27 @@
   margin: 12px 0 6px;
   box-shadow: 0 6px 16px #0000001f;
 }
+
+/* -------------------------------------------------------------
+ * 20. 剧情素材：接听来电播放语音留言（自动播放 + 配文 + 播完自动挂断）
+ * ------------------------------------------------------------- */
+.ios18 .answered-call-media {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 30px;
+}
+.ios18 .answered-call-media audio {
+  width: 100%;
+}
+.ios18 .answered-call-caption {
+  margin: 18px 0 0;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #eef3f5;
+  text-align: center;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #0000002e;
+}

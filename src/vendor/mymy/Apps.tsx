@@ -276,9 +276,15 @@ export function MymyKakao(p: SkinProps) {
                     </span>
                     <span className="kzkmt">
                       {last.time.slice(-5)}
-                      {last.meta.unread && (
-                        <i className="kzkbd">{last.meta.unread}</i>
-                      )}
+                      {last.meta.unread &&
+                        (last.meta.unread === "dots" ? (
+                          <span className="kzkdots" aria-label="未读">
+                            <i />
+                            <i />
+                          </span>
+                        ) : (
+                          <i className="kzkbd">{last.meta.unread}</i>
+                        ))}
                     </span>
                   </button>
                 );
