@@ -191,6 +191,11 @@
   text-align: center;
   padding-top: 80px;
 }
+.ios18 .native-file-preview audio {
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 18px;
+}
 .ios18 .native-action-sheet {
   position: absolute;
   right: 12px;

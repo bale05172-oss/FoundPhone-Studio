@@ -13,6 +13,7 @@ import {
   Check,
 } from "lucide-react";
 import { RichText } from "../RichText";
+import { Media } from "../skins/shared";
 import { safeMedia, type Item } from "../schema";
 export const nativeDetailApps = new Set([
   "notes",
@@ -186,7 +187,11 @@ export function NativeDetail({
         </>
       ) : (
         <div className="native-detail-scroll native-file-preview">
-          <Folder size={64} color="#007aff" />
+          {item.kind === "audio" && media ? (
+            <Media item={item} />
+          ) : (
+            <Folder size={64} color="#007aff" />
+          )}
           <h2>{item.title}</h2>
           <p>{item.body}</p>
           <small>{item.time}</small>
