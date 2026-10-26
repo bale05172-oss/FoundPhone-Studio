@@ -1,0 +1,601 @@
+/* =====================================================================
+ * FoundPhone Studio — UI 打磨层（ui-polish）
+ *
+ * 目的：在保留 iOS 基础框架与原有功能的前提下，对视觉质感、交互动效、
+ * 桌面小组件与系统界面做统一打磨。只改样式，不改引擎与剧情数据。
+ *
+ * 原则：
+ *  - 选择器沿用 .ios18 作用域，与既有样式体系一致；
+ *  - 仅叠加视觉与动效属性，不改变任何布局关键值（position/size 等
+ *    均以原文件为准），不回退既有功能；
+ *  - 所有新增动画遵守 prefers-reduced-motion。
+ * ===================================================================== */
+
+/* -------------------------------------------------------------
+ * 1. 设备外壳与屏幕（更精致的金属质感与内发光）
+ * ------------------------------------------------------------- */
+.ios18.phone-shell {
+  background: linear-gradient(
+    115deg,
+    #f4f5f0 0%,
+    #9a9e95 4%,
+    #3a3e39 10%,
+    #232823 46%,
+    #2a2f2a 88%,
+    #a8aba1 96%,
+    #e8eae2 100%
+  );
+  box-shadow:
+    0 0 0 1px #6f7468,
+    0 0 0 2px #cdd1c3,
+    inset 0 0 0 1px #ffffff2e,
+    0 30px 48px #3a4d2c40,
+    0 8px 12px #2c3c261f;
+}
+.ios18 .phone-screen {
+  box-shadow:
+    inset 0 0 0 1px #0b0f0c,
+    inset 0 0 22px #00000038;
+}
+.ios18 .hardware-reflection {
+  box-shadow:
+    inset 0 0 1px 1px #ffffff24,
+    inset 0 22px 38px -26px #ffffff33;
+}
+
+/* -------------------------------------------------------------
+ * 2. 壁纸体系（保留四种命名，加深层次与通透感，并内置柔光晕边）
+ * ------------------------------------------------------------- */
+.ios18 .wallpaper-sage {
+  background:
+    radial-gradient(120% 90% at 12% 6%, #f2f4da 0%, transparent 54%),
+    radial-gradient(130% 110% at 90% 94%, #c6d5a4 0%, transparent 48%),
+    linear-gradient(160deg, #dbe1c0 0%, #93b09a 38%, #3e6157 68%, #8da88e 100%);
+}
+.ios18 .wallpaper-sand {
+  background:
+    radial-gradient(120% 90% at 14% 4%, #fbf3de 0%, transparent 52%),
+    radial-gradient(130% 110% at 88% 96%, #e7d9b4 0%, transparent 46%),
+    linear-gradient(150deg, #f0e5c9 0%, #c3b69f 42%, #8f9b83 74%, #d8cdac 100%);
+}
+.ios18 .wallpaper-night {
+  background:
+    radial-gradient(120% 90% at 18% 4%, #b9cdca 0%, transparent 50%),
+    radial-gradient(140% 110% at 86% 96%, #2e4c4c 0%, transparent 52%),
+    linear-gradient(150deg, #8fa3a0 0%, #3b5854 44%, #16292b 76%, #71867b 100%);
+}
+.ios18 .wallpaper-rose {
+  background:
+    radial-gradient(120% 90% at 12% 6%, #f2e2d7 0%, transparent 52%),
+    radial-gradient(130% 110% at 90% 94%, #caa9a2 0%, transparent 46%),
+    linear-gradient(155deg, #e8d5cb 0%, #c9aea7 42%, #877d7d 72%, #b7bfa9 100%);
+}
+.ios18 .wallpaper-orb {
+  border: 1px solid #ffffff2e;
+  filter: blur(2px);
+}
+.ios18 .orb-one {
+  box-shadow:
+    inset -20px -10px 42px #f6ffd833,
+    0 0 64px #eef2c926;
+}
+.ios18 .orb-two {
+  box-shadow:
+    inset 14px 18px 48px #f6ffd924,
+    0 0 54px #e8eec528;
+}
+
+/* 默认模板壁纸：原实现依赖 developer.apple.com 远程图片，离线时只显示纯色兜底。
+ * 这里改为自包含的紫色渐变（沿用 WWDC26 的紫色调），离线同样完整。 */
+.ios18 .wallpaper-apple-wwdc26 {
+  background:
+    radial-gradient(110% 90% at 15% 8%, #6b4ec0 0%, transparent 55%),
+    radial-gradient(130% 110% at 88% 92%, #2f1b5e 0%, transparent 55%),
+    linear-gradient(165deg, #4b2f96 0%, #2a1b54 45%, #170e36 78%, #3c2166 100%);
+}
+.ios18 .wallpaper-apple-wwdc26 .wallpaper-orb {
+  display: block;
+}
+.ios18 .wallpaper-apple-wwdc26 .orb-one {
+  background: linear-gradient(45deg, #8f6be6aa, #c3a9ffaa 45%, #ffffff04 70%);
+  box-shadow:
+    inset -20px -10px 42px #a98aff40,
+    0 0 64px #7a56e026;
+}
+.ios18 .wallpaper-apple-wwdc26 .orb-two {
+  background: linear-gradient(45deg, #7a56e01a, #c3a9ff44);
+  box-shadow: inset 14px 18px 48px #9d80ff24;
+}
+
+/* -------------------------------------------------------------
+ * 3. 状态栏与灵动岛
+ * ------------------------------------------------------------- */
+.ios18 .dynamic-island {
+  background: linear-gradient(180deg, #05070b 0%, #10140f 100%);
+  box-shadow:
+    inset 0 -1px 2px #ffffff1e,
+    inset 0 1px 1px #00000090;
+}
+
+/* -------------------------------------------------------------
+ * 4. 锁屏（时钟、通知卡片、快捷工具）
+ * ------------------------------------------------------------- */
+.ios18 .lock-clock-block > p {
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: #ffffffd9;
+  text-shadow: 0 1px 14px #00000048;
+}
+.ios18 .lock-clock-block > h1 {
+  font-weight: 200;
+  letter-spacing: -2px;
+  text-shadow: 0 2px 26px #0000003e;
+}
+.ios18 .lock-notice {
+  background: linear-gradient(180deg, #ffffff9e 0%, #ffffff59 100%);
+  backdrop-filter: blur(30px) saturate(1.8);
+  border: 1px solid #ffffff4a;
+  box-shadow:
+    inset 0 1px 1px #ffffff66,
+    0 10px 26px #0000002c;
+}
+.ios18 .lock-tools button {
+  background: linear-gradient(180deg, #ffffff2c 0%, #ffffff0d 100%);
+  border: 1px solid #ffffff2b;
+  box-shadow:
+    inset 0 1px 1px #ffffff38,
+    0 5px 14px #00000040;
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.2s ease;
+}
+.ios18 .lock-tools button:active {
+  transform: scale(0.88);
+}
+.ios18 .pin-keypad button {
+  box-shadow:
+    inset 0 1px 1px #ffffff2a,
+    0 6px 14px #00000038;
+  transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ios18 .pin-keypad button:active {
+  transform: scale(0.92);
+}
+
+/* -------------------------------------------------------------
+ * 5. 通知中心卡片与锁屏横幅
+ * ------------------------------------------------------------- */
+.ios18 .device-notice {
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffffaa 0%, #ffffff57 100%);
+  backdrop-filter: blur(30px) saturate(1.8);
+  border: 1px solid #ffffff4d;
+  box-shadow:
+    inset 0 1px 1px #ffffff6e,
+    0 10px 28px #0000002e;
+}
+.ios18 .notice-stacked .device-notice:before,
+.ios18 .notice-stacked .device-notice:after {
+  background: #ffffff4a;
+  border: 1px solid #ffffff2e;
+}
+.ios18 .device-banner {
+  border-radius: 24px;
+  background: linear-gradient(180deg, #ffffffd2 0%, #ffffff9a 100%);
+  backdrop-filter: blur(30px) saturate(1.8);
+  border: 1px solid #ffffff5e;
+  box-shadow:
+    inset 0 1px 1px #ffffff85,
+    0 12px 30px #00000033;
+  animation: ui-banner-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ui-banner-in {
+  from {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.97);
+  }
+}
+
+/* -------------------------------------------------------------
+ * 6. 控制中心（玻璃磁贴、按压反馈）
+ * ------------------------------------------------------------- */
+.ios18 .cc-status {
+  background: linear-gradient(180deg, #ffffff32 0%, #ffffff14 100%);
+  border: 1px solid #ffffff28;
+  box-shadow: inset 0 1px 1px #ffffff3e;
+}
+.ios18 .cc-square,
+.ios18 .cc-focus {
+  background: linear-gradient(180deg, #ffffff38 0%, #ffffff1a 100%);
+  border: 1px solid #ffffff30;
+  box-shadow:
+    inset 0 1px 1px #ffffff42,
+    0 6px 16px #00000028;
+  backdrop-filter: blur(18px);
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.2s ease;
+}
+.ios18 .cc-square:active,
+.ios18 .cc-focus:active {
+  transform: scale(0.93);
+}
+.ios18 .cc-white {
+  background: linear-gradient(180deg, #ffffff 0%, #f2f5ee 100%);
+  color: #1c2320;
+  border-color: #ffffff82;
+  box-shadow:
+    inset 0 1px 1px #ffffffb3,
+    0 8px 20px #00000035;
+}
+.ios18 .cc-music,
+.ios18 .cc-connect {
+  border: 1px solid #ffffff2e;
+  box-shadow:
+    inset 0 1px 1px #ffffff40,
+    0 6px 16px #00000028;
+}
+.ios18 .cc-close,
+.ios18 .cc-edit {
+  background: linear-gradient(180deg, #ffffff38 0%, #ffffff18 100%);
+  border: 1px solid #ffffff2e;
+  box-shadow: inset 0 1px 1px #ffffff40;
+  transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ios18 .cc-close:active,
+.ios18 .cc-edit:active {
+  transform: scale(0.9);
+}
+
+/* -------------------------------------------------------------
+ * 7. App 切换器（玻璃卡片 + 依次入场）
+ * ------------------------------------------------------------- */
+.ios18 .device-switcher {
+  background: #171a1eb8;
+}
+.ios18 .device-switcher .recent-app-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f0f0f5 100%);
+  border: 1px solid #ffffff55;
+  box-shadow:
+    inset 0 1px 1px #ffffff99,
+    0 18px 44px #00000045;
+  animation: ui-switcher-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.ios18 .device-switcher .recent-app-card:nth-child(2) {
+  animation-delay: 0.05s;
+}
+.ios18 .device-switcher .recent-app-card:nth-child(3) {
+  animation-delay: 0.1s;
+}
+.ios18 .device-switcher .recent-app-card:nth-child(4) {
+  animation-delay: 0.15s;
+}
+.ios18 .device-switcher .recent-app-card:nth-child(5) {
+  animation-delay: 0.2s;
+}
+@keyframes ui-switcher-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.95);
+  }
+}
+
+/* -------------------------------------------------------------
+ * 8. 桌面图标：按压反馈与拖拽幽灵
+ * ------------------------------------------------------------- */
+.ios18 .launcher-cell .app-icon-wrap {
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ios18 .launcher-cell:active .app-icon-wrap {
+  transform: scale(0.86);
+}
+.ios18 .launcher-cell .app-name {
+  transition: opacity 0.2s ease;
+}
+.ios18 .launcher-ghost {
+  filter: drop-shadow(0 14px 18px #00000059);
+  animation: ui-ghost-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ui-ghost-in {
+  from {
+    opacity: 0.45;
+    transform: translate(-50%, -35%) scale(0.85);
+  }
+  to {
+    opacity: 0.92;
+    transform: translate(-50%, -35%) scale(1);
+  }
+}
+.ios18 .launcher-toolbar button {
+  box-shadow:
+    inset 0 1px 1px #ffffff59,
+    0 6px 14px #00000026;
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ios18 .launcher-toolbar button:active {
+  transform: scale(0.93);
+}
+
+/* -------------------------------------------------------------
+ * 9. 桌面小组件（玻璃质感 + 各类型专属配色）
+ * ------------------------------------------------------------- */
+.ios18 .widget-face {
+  background: linear-gradient(160deg, #ffffffde 0%, #ffffffa6 58%, #ffffff74 100%);
+  border: 1px solid #ffffff5e;
+  box-shadow:
+    inset 0 1px 1px #ffffffa8,
+    inset 0 -12px 26px #00000012,
+    0 10px 26px #00000022;
+  backdrop-filter: blur(24px) saturate(1.6);
+  color: #16181a;
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+.ios18 .launcher-cell:active .widget-face {
+  transform: scale(0.95);
+}
+.ios18 .widget-face small {
+  color: #454a46;
+}
+.ios18 .widget-face b {
+  font-weight: 500;
+}
+.ios18 .widget-weather {
+  background:
+    radial-gradient(120% 100% at 15% 0%, #ffffff55 0%, transparent 46%),
+    radial-gradient(140% 120% at 88% 100%, #4d79b8 0%, transparent 55%),
+    linear-gradient(155deg, #3e6fae 0%, #5f92c9 48%, #9dc0e4 100%);
+  color: #fff;
+  border-color: #ffffff42;
+  box-shadow:
+    inset 0 1px 1px #ffffff59,
+    0 12px 28px #1e335a33;
+}
+.ios18 .widget-weather small {
+  color: #e6f0fa;
+}
+.ios18 .widget-notes {
+  background: linear-gradient(160deg, #fffdf1 0%, #fff6cf 100%);
+  border-color: #ffe9a34d;
+  box-shadow:
+    inset 0 1px 1px #ffffffcc,
+    inset 0 -12px 26px #c99b3418,
+    0 10px 26px #00000022;
+}
+.ios18 .widget-notes small {
+  color: #6f643f;
+}
+.ios18 .widget-battery {
+  background:
+    radial-gradient(120% 100% at 85% 0%, #bdf3cf55 0%, transparent 50%),
+    linear-gradient(160deg, #ffffffde 0%, #eafcf0a8 100%);
+  border-color: #7fe0a34d;
+}
+.ios18 .widget-battery svg {
+  filter: drop-shadow(0 3px 8px #34c75966);
+}
+.ios18 .widget-clock {
+  background:
+    radial-gradient(130% 120% at 50% 0%, #ffffffd6 0%, #ffffff86 100%);
+}
+.ios18 .widget-clock svg {
+  filter: drop-shadow(0 4px 10px #0000002e);
+}
+.ios18 .widget-red {
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------
+ * 10. Dock、搜索与页码点
+ * ------------------------------------------------------------- */
+.ios18 .interactive-home .dock {
+  background: linear-gradient(180deg, #ffffff2e 0%, #ffffff10 100%);
+  border: 1px solid #ffffff30;
+  box-shadow:
+    inset 0 1px 1px #ffffff3c,
+    0 12px 28px #00000026;
+  backdrop-filter: blur(28px) saturate(1.6);
+}
+.ios18 .interactive-home .launcher-bottom-tools .home-search,
+.ios18 .home-search {
+  background: linear-gradient(180deg, #ffffff2e 0%, #ffffff12 100%);
+  border: 1px solid #ffffff30;
+  box-shadow:
+    inset 0 1px 1px #ffffff3c,
+    0 6px 14px #00000022;
+  backdrop-filter: blur(18px);
+  color: #f2f6ec;
+}
+.ios18 .home-page-dots button {
+  width: 7px;
+  height: 7px;
+  border-radius: 4px;
+  background: #ffffff66;
+  transition:
+    width 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s ease,
+    opacity 0.3s ease;
+}
+.ios18 .home-page-dots button[aria-current] {
+  width: 18px;
+  background: #ffffff;
+}
+
+/* -------------------------------------------------------------
+ * 11. 文件夹（玻璃面板 + 图标依次入场）
+ * ------------------------------------------------------------- */
+.ios18 .folder-overlay {
+  animation: ui-folder-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ui-folder-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(10px);
+  }
+}
+.ios18 .folder-apps {
+  background: linear-gradient(180deg, #ffffff26 0%, #ffffff10 100%);
+  border: 1px solid #ffffff2e;
+  box-shadow:
+    inset 0 1px 1px #ffffff33,
+    0 18px 40px #00000035;
+}
+.ios18 .folder-apps button {
+  animation: ui-folder-app-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.ios18 .folder-apps button:nth-child(1) { animation-delay: 0.02s; }
+.ios18 .folder-apps button:nth-child(2) { animation-delay: 0.05s; }
+.ios18 .folder-apps button:nth-child(3) { animation-delay: 0.08s; }
+.ios18 .folder-apps button:nth-child(4) { animation-delay: 0.11s; }
+.ios18 .folder-apps button:nth-child(5) { animation-delay: 0.14s; }
+.ios18 .folder-apps button:nth-child(6) { animation-delay: 0.17s; }
+.ios18 .folder-apps button:nth-child(7) { animation-delay: 0.2s; }
+.ios18 .folder-apps button:nth-child(8) { animation-delay: 0.23s; }
+.ios18 .folder-apps button:nth-child(9) { animation-delay: 0.26s; }
+@keyframes ui-folder-app-in {
+  from {
+    opacity: 0;
+    transform: scale(0.78) translateY(8px);
+  }
+}
+
+/* -------------------------------------------------------------
+ * 12. 面板、弹层与长按菜单
+ * ------------------------------------------------------------- */
+.ios18 .system-panel:not(.device-control) {
+  animation: ui-panel-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ui-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+}
+.ios18 .launcher-sheet {
+  animation: ui-sheet-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ui-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+}
+.ios18 .launcher-toast {
+  animation: ui-toast-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ui-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+.ios18 .home-context-shade {
+  animation: ui-shade-in 0.25s ease both;
+}
+@keyframes ui-shade-in {
+  from {
+    opacity: 0;
+  }
+}
+.ios18 .home-context-menu {
+  box-shadow:
+    inset 0 1px 1px #ffffff8f,
+    0 18px 54px #0000004a;
+  animation: ui-context-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ui-context-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.94);
+  }
+}
+
+/* -------------------------------------------------------------
+ * 13. 故事选择、结局与模拟来电
+ * ------------------------------------------------------------- */
+.ios18 .story-overlay {
+  animation: ui-overlay-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ui-overlay-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+  }
+}
+.ios18 .incoming-call-screen {
+  background-image: radial-gradient(120% 80% at 50% 0%, #ffffff1e 0%, transparent 55%);
+  animation: ui-call-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ui-call-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+.ios18 .incoming-avatar {
+  background: linear-gradient(180deg, #aebcc0 0%, #7f8f92 100%);
+  box-shadow:
+    0 0 0 6px #ffffff2e,
+    0 16px 36px #00000045;
+}
+.ios18 .incoming-actions > button > svg {
+  box-shadow:
+    inset 0 1px 2px #ffffff30,
+    0 12px 24px #00000040;
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ios18 .incoming-actions > button:active > svg {
+  transform: scale(0.9);
+}
+.ios18 .runtime-error {
+  animation: ui-toast-in 0.3s ease both;
+}
+
+/* -------------------------------------------------------------
+ * 14. 键盘按压反馈
+ * ------------------------------------------------------------- */
+.ios18 .keyboard-row button {
+  transition: transform 0.12s ease;
+}
+.ios18 .keyboard-row button:active {
+  transform: scale(0.96);
+}
+
+/* -------------------------------------------------------------
+ * 15. 无障碍：尊重系统“减少动态效果”设置
+ * ------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ios18 .device-banner,
+  .ios18 .device-switcher .recent-app-card,
+  .ios18 .folder-overlay,
+  .ios18 .folder-apps button,
+  .ios18 .system-panel:not(.device-control),
+  .ios18 .launcher-sheet,
+  .ios18 .launcher-toast,
+  .ios18 .launcher-ghost,
+  .ios18 .home-context-shade,
+  .ios18 .home-context-menu,
+  .ios18 .story-overlay,
+  .ios18 .incoming-call-screen,
+  .ios18 .runtime-error {
+    animation: none !important;
+  }
+  .ios18 .launcher-cell:active .app-icon-wrap,
+  .ios18 .launcher-cell:active .widget-face,
+  .ios18 .lock-tools button:active,
+  .ios18 .pin-keypad button:active,
+  .ios18 .cc-square:active,
+  .ios18 .cc-focus:active,
+  .ios18 .cc-close:active,
+  .ios18 .cc-edit:active,
+  .ios18 .launcher-toolbar button:active,
+  .ios18 .incoming-actions > button:active > svg,
+  .ios18 .keyboard-row button:active {
+    transform: none !important;
+    transition: none !important;
+  }
+  .ios18 .home-page-dots button {
+    transition: none !important;
+  }
+}

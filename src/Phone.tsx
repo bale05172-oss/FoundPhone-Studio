@@ -31,6 +31,7 @@ import "./device-system.css";
 import "./ios/tokens.css";
 import "./ios/reference.css";
 import "./ios/status-bar.css";
+import "./ui-polish.css";
 import { WeChatSkin, WhatsAppSkin } from "./AppSkins";
 import { RichText } from "./RichText";
 import {
