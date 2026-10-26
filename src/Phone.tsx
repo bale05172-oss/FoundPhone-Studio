@@ -301,7 +301,7 @@ function PhoneRuntime({
       noticesSeen.current = count;
       return () => clearTimeout(timer);
     }
-    noticesSeen.current = count;
+    if (!locked) noticesSeen.current = count;
   }, [s.notifications.length, locked, work.phone.notifications]);
   const dismissNotice = (index: number) =>
     update({
@@ -556,11 +556,11 @@ function PhoneRuntime({
                     <SystemNotifications
                       notices={s.notifications}
                       apps={work.apps}
-                      onOpen={() => {
+                      onOpen={(appId) => {
                         setPanel("");
                         if (locked) beginUnlock();
-                        else if (installedApps.some((a) => a.id === "messages"))
-                          open("messages");
+                        else if (installedApps.some((a) => a.id === appId))
+                          open(appId);
                       }}
                       onDismiss={dismissNotice}
                     />
