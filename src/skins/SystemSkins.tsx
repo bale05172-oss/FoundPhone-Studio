@@ -388,6 +388,7 @@ export function NotesSkin(p: Props) {
         <div className="notes-list">
           {list.map((i) => (
             <button key={i.id} onClick={() => p.onItem(i)}>
+              {i.media && <img className="note-thumb" src={safeMedia(i.media)} alt="" />}
               <strong>
                 {i.password && <LockKeyhole size={12} />} {i.title}
               </strong>

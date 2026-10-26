@@ -37,6 +37,7 @@ export function NativeDetail({
     [copied, setCopied] = useState(false),
     [call, setCall] = useState(false);
   const media = safeMedia(item.media),
+    media2 = safeMedia(item.media2),
     name =
       app === "notes"
         ? "备忘录"
@@ -146,6 +147,8 @@ export function NativeDetail({
           <div className="native-detail-scroll native-note-paper">
             <time>{item.time}</time>
             <h1>{item.title}</h1>
+            <Media item={item} />
+            {media2 && <img className="native-note-photo" src={media2} alt="" />}
             <RichText value={item.richText} fallback={item.body} />
           </div>
           <footer className="native-detail-toolbar">
