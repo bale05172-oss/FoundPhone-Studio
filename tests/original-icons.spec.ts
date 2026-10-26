@@ -76,6 +76,11 @@ test("missing original image safely falls back without losing app action", async
   await page.route("**/icon-assets/photos.png", (r) => r.abort());
   await page.goto("/");
   await page.getByRole("button", { name: "轻触解锁" }).click();
+  for (const key of "0329") {
+    await page
+      .getByRole("button", { name: `密码键${key}`, exact: true })
+      .click();
+  }
   await expect(
     page.getByRole("button", { name: "打开相册", exact: true }).locator("svg"),
   ).toBeVisible();

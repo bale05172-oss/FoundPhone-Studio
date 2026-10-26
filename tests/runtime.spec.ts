@@ -29,6 +29,7 @@ async function open(page: Page, name: string) {
 test("direct player, settings stack and toggle, system screenshots", async ({
   page,
 }) => {
+  test.setTimeout(45000); // 11 个应用逐一打开截图 + 设置层级，接近 30s 上限，放宽避免边界抖动
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
@@ -171,6 +172,11 @@ test("production PWA cached story works after offline reload", async ({
     await context.setOffline(true);
     await page.reload();
     await page.getByRole("button", { name: "轻触解锁" }).click();
+    for (const key of "0329") {
+      await page
+        .getByRole("button", { name: `密码键${key}`, exact: true })
+        .click();
+    }
     await open(page, "设置");
     await expect(page.getByRole("switch", { name: "飞行模式" })).toBeVisible();
     await page

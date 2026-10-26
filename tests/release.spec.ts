@@ -7,11 +7,16 @@ test("published default matches full test preview, four dock apps and updated st
   const preview = await (await request.get("/test-work.json")).json();
   expect(work.id).toBe("ui-test-phone-v2");
   expect(work.apps).toEqual(preview.apps);
-  expect(work.data).toEqual(preview.data);
   expect(
     work.apps.filter((a: { installed: boolean }) => a.installed),
   ).toHaveLength(49);
-  expect(work.nodes).toHaveLength(0);
+  // 默认故事现在是剧情模式：锁屏密码、P1 壁纸、KKT 会话与来电事件链
+  expect(work.phone.passcode).toBe("0329");
+  expect(work.phone.wallpaper).toBe("p1");
+  expect(work.mode).toBe("mixed");
+  expect(work.nodes).toHaveLength(7);
+  const kkt = work.data.kakao ?? [];
+  expect(kkt.some((i: { title: string }) => i.title === "裴柱现")).toBe(true);
   expect(
     work.apps.filter(
       (a: { installed: boolean; dock: boolean }) => a.installed && a.dock,
@@ -26,7 +31,14 @@ test("published default matches full test preview, four dock apps and updated st
     .locator(".phone-screen")
     .screenshot({ path: "docs/images/lock.png" });
   await page.getByRole("button", { name: "轻触解锁" }).click();
-  await expect(page.locator(".lock-screen")).toHaveCount(0);
+  for (const key of "0329") {
+    await page
+      .getByRole("button", { name: `密码键${key}`, exact: true })
+      .click();
+  }
+  await expect(
+    page.getByRole("button", { name: "打开App Store", exact: true }),
+  ).toBeVisible();
   await expect(page.locator(".interactive-home")).toHaveCSS("opacity", "1");
   await expect(page.locator(".dock [data-home-key]")).toHaveCount(4);
   await expect(page.locator(".status-silent")).toBeVisible();
@@ -75,6 +87,11 @@ test("published default matches full test preview, four dock apps and updated st
     .screenshot({ path: "docs/images/settings.png" });
   await page.reload();
   await page.getByRole("button", { name: "轻触解锁" }).click();
+  for (const key of "0329") {
+    await page
+      .getByRole("button", { name: `密码键${key}`, exact: true })
+      .click();
+  }
   await expect(page.locator(".dock [data-home-key]")).toHaveCount(4);
   expect(
     await page.evaluate(

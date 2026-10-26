@@ -599,3 +599,57 @@
     transition: none !important;
   }
 }
+
+/* -------------------------------------------------------------
+ * 16. 剧情素材：P1 壁纸（本地资源，随构建打包并预缓存）
+ *    覆盖默认的渐变壁纸，用于默认故事；深色照片上叠一层柔光
+ *    保证状态栏与应用名可读。
+ * ------------------------------------------------------------- */
+.ios18 .wallpaper-p1 {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8, 10, 18, 0.28) 0%,
+      rgba(8, 10, 18, 0) 36%,
+      rgba(8, 10, 18, 0.42) 100%
+    ),
+    url("/assets/p1.jpg") center 36% / cover no-repeat;
+}
+.ios18 .wallpaper-p1 .wallpaper-orb {
+  display: none;
+}
+
+/* -------------------------------------------------------------
+ * 17. 剧情素材：KKT 来电/通话记录行（居中系统行）
+ * ------------------------------------------------------------- */
+.catalog-call-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 2px auto 14px;
+  padding: 5px 10px;
+  max-width: 80%;
+  border-radius: 11px;
+  background: #e3e3e9;
+  color: #6d6d74;
+  font-size: 11px;
+  line-height: 1.4;
+}
+.catalog-call-line small {
+  font-size: 9px;
+  opacity: 0.75;
+}
+
+/* -------------------------------------------------------------
+ * 18. 剧情素材：来电界面显示联系人真实头像（P2）
+ * ------------------------------------------------------------- */
+.ios18 .incoming-avatar {
+  overflow: hidden;
+}
+.ios18 .incoming-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}

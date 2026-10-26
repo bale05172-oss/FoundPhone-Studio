@@ -616,7 +616,18 @@ function PhoneRuntime({
                 作品内模拟
               </small>
               <div className="incoming-avatar">
-                {s.incomingCall.caller.slice(0, 1)}
+                {(() => {
+                  const src = safeMedia(
+                    work.data.contacts?.find(
+                      (i) => i.title === s.incomingCall?.caller,
+                    )?.avatar ?? "",
+                  );
+                  return src ? (
+                    <img src={src} alt="" />
+                  ) : (
+                    s.incomingCall.caller.slice(0, 1)
+                  );
+                })()}
               </div>
               <h2>{s.incomingCall.caller}</h2>
               {s.incomingCall.status === "answered" &&
@@ -890,6 +901,12 @@ function AppContent({
   const [unlocks, setUnlocks] = useState<string[]>([]);
   const [pwError, setPwError] = useState("");
   const [likes, setLikes] = useState<string[]>([]);
+  const contacts = (work.data.contacts ?? [])
+    .filter((i) => i.id.endsWith("-card"))
+    .map((i) => ({
+      name: i.title,
+      avatar: i.avatar,
+    }));
   const shown = items
     .filter((i) => creator || visible(i, state))
     .filter((i) =>
@@ -1001,6 +1018,7 @@ function AppContent({
               onBack={onBack}
               thread={thread}
               onThread={setThread}
+              contacts={contacts}
             />
           </Suspense>
         </div>

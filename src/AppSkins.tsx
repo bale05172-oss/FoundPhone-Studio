@@ -47,6 +47,7 @@ export type SkinProps = {
   onBack: () => void;
   thread: string;
   onThread: (s: string) => void;
+  contacts?: { name: string; avatar?: string }[];
 };
 function Avatar({
   name,
@@ -171,7 +172,10 @@ export function WeChatSkin(p: SkinProps) {
     ),
   ];
   const contacts = [
-    ...new Set(p.items.map((i) => i.sender).filter((s) => s !== "我")),
+    ...new Set([
+      ...p.items.map((i) => i.sender).filter((s) => s !== "我"),
+      ...(p.contacts?.map((c) => c.name) ?? []),
+    ]),
   ];
   const posts = p.items.filter(
     (i) => i.folder === "朋友圈" || i.kind === "post",
@@ -385,7 +389,10 @@ export function WeChatSkin(p: SkinProps) {
                 >
                   <Avatar
                     name={c}
-                    src={p.items.find((i) => i.sender === c)?.avatar}
+                    src={
+                      p.contacts?.find((x) => x.name === c)?.avatar ||
+                      p.items.find((i) => i.sender === c)?.avatar
+                    }
                   />
                   {c}
                 </button>

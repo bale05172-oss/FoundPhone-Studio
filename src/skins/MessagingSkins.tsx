@@ -39,24 +39,32 @@ function Bubbles({
   return (
     <div className={`catalog-bubbles ${className}`}>
       <time className="bubble-date">{items[0]?.time.slice(0, 10)}</time>
-      {items.map((i) => (
-        <div
-          className={`catalog-message ${i.outgoing ? "outgoing" : ""}`}
-          key={i.id}
-        >
-          <button onClick={() => (p.creator ? p.onItem(i) : p.onRead(i.id))}>
-            {["image", "video", "audio"].includes(i.kind) ? (
-              <Media item={i} />
-            ) : (
-              i.body
-            )}
-            <small>
-              {i.time.slice(-5)}
-              {i.read && <CheckCheck size={10} />}
-            </small>
-          </button>
-        </div>
-      ))}
+      {items.map((i) =>
+        i.kind === "call" ? (
+          <div className="catalog-call-line" key={i.id}>
+            <Phone size={11} />
+            <span>{i.body}</span>
+            <small>{i.time.slice(-5)}</small>
+          </div>
+        ) : (
+          <div
+            className={`catalog-message ${i.outgoing ? "outgoing" : ""}`}
+            key={i.id}
+          >
+            <button onClick={() => (p.creator ? p.onItem(i) : p.onRead(i.id))}>
+              {["image", "video", "audio"].includes(i.kind) ? (
+                <Media item={i} />
+              ) : (
+                i.body
+              )}
+              <small>
+                {i.time.slice(-5)}
+                {i.read && <CheckCheck size={10} />}
+              </small>
+            </button>
+          </div>
+        ),
+      )}
     </div>
   );
 }
