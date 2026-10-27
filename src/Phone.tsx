@@ -1,5 +1,5 @@
 import { StatusGlyph } from "./ios/StatusGlyph";
-import { SocialDetail, socialDetailApps } from "./skins/SocialDetails";
+import { SocialDetail, socialDetailApps, ForumDetail } from "./skins/SocialDetails";
 import { NativeCalculator } from "./ios/Calculator";
 import { HomeLauncher } from "./launcher/HomeLauncher";
 import { useDeviceLayout } from "./launcher/layout";
@@ -1106,6 +1106,9 @@ function AppContent({
           ) : nativeDetailApps.has(app.id) &&
             (!detail.password || unlocks.includes(detail.id)) ? (
             <NativeDetail app={app.id} item={detail} back={back} />
+          ) : app.id === "forum" &&
+            (!detail.password || unlocks.includes(detail.id)) ? (
+            <ForumDetail item={detail} back={back} />
           ) : (
             <>
               <div className="app-nav">

@@ -349,3 +349,86 @@
   font-size: inherit;
   line-height: inherit;
 }
+
+/* 论坛帖子详情 */
+.ios18 .forum-detail {
+  background: #f7f7f5;
+  color: #222;
+}
+.ios18 .forum-detail-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 24px;
+}
+.ios18 .forum-detail-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 6px;
+}
+.ios18 .forum-detail-head strong {
+  display: block;
+  font-size: 14px;
+}
+.ios18 .forum-detail-head small {
+  font-size: 11px;
+  color: #999;
+}
+.ios18 .forum-detail-title {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 8px 16px;
+  line-height: 1.45;
+}
+.ios18 .forum-detail > .forum-detail-scroll > .rich-text,
+.ios18 .forum-detail > .forum-detail-scroll > p {
+  margin: 6px 16px 14px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #333;
+}
+.ios18 .forum-detail-floors {
+  border-top: 8px solid #efefec;
+}
+.ios18 .forum-floor {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0ee;
+}
+.ios18 .forum-floor-no {
+  min-width: 58px;
+  font-size: 12px;
+  color: #b0b0ac;
+  padding-top: 2px;
+}
+.ios18 .forum-floor > div {
+  flex: 1;
+  min-width: 0;
+}
+.ios18 .forum-floor strong {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 2px;
+}
+.ios18 .forum-floor p {
+  font-size: 14px;
+  color: #222;
+  line-height: 1.5;
+  margin: 0;
+}
+.ios18 .forum-floor-omit {
+  text-align: center;
+  color: #b0b0ac;
+  font-size: 16px;
+  letter-spacing: 4px;
+  padding: 14px 0;
+  margin: 0;
+  background: #fff;
+  border-bottom: 1px solid #f0f0ee;
+}

@@ -304,3 +304,49 @@ export function SocialDetail(p: {
     </div>
   );
 }
+export function ForumDetail(p: { item: Item; back: () => void }) {
+  const { item } = p;
+  return (
+    <div className="app-post-detail forum-detail">
+      <header className="post-detail-nav">
+        <button aria-label="返回帖子列表" onClick={p.back}>
+          <ChevronLeft size={27} />
+        </button>
+        <strong>帖子</strong>
+        <div />
+      </header>
+      <div className="forum-detail-scroll">
+        <div className="forum-detail-head">
+          <Avatar name={item.sender} />
+          <div>
+            <strong>{item.sender}</strong>
+            <small>{item.time}</small>
+          </div>
+        </div>
+        <h2 className="forum-detail-title">{item.title}</h2>
+        <RichText value={item.richText} fallback={item.body} />
+        <div className="forum-detail-floors">
+          {item.comments.map((c, i) => {
+            if (c === "………")
+              return (
+                <p key={i} className="forum-floor-omit">
+                  ………
+                </p>
+              );
+            const [floor, name, body] = c.split("｜");
+            return (
+              <article key={i} className="forum-floor">
+                <span className="forum-floor-no">{floor}</span>
+                <Avatar name={name} />
+                <div>
+                  <strong>{name}</strong>
+                  <p>{body}</p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
