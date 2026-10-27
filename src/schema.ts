@@ -48,6 +48,14 @@ export const itemSchema = z.object({
           }),
         )
         .default([]),
+      reply: z
+        .object({
+          name: z.string(),
+          text: z.string(),
+          once: z.boolean().default(true),
+        })
+        .nullable()
+        .default(null),
     })
     .nullable()
     .default(null),

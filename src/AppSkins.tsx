@@ -168,6 +168,11 @@ function MomentCard({ item, p }: { item: Item; p: SkinProps }) {
   );
   const [draft, setDraft] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const [repliedOnce, setRepliedOnce] = useSkinState<boolean>(
+    p,
+    `momentReplied-${item.id}`,
+    false,
+  );
   const extraComments = extras
     .map((raw): MomentComment | null => {
       try {
@@ -198,16 +203,31 @@ function MomentCard({ item, p }: { item: Item; p: SkinProps }) {
     const text = draft.trim();
     if (!text) return;
     const mine = JSON.stringify({ name: p.owner, text });
-    const pool = base.likes.filter((n) => n !== p.owner);
-    const replier = pool.length
-      ? pool[Math.floor(Math.random() * pool.length)]
-      : "";
-    const reply = JSON.stringify({
-      name: replier,
-      text: "哦哟当事人来了，有什么想法吗kkkk",
-    });
-    setExtras((e) => [...e, mine, ...(replier ? [reply] : [])]);
-    if (replier) pushNotice(`微信:${replier}回复了你`);
+    const rule = item.moment?.reply ?? null;
+    if (rule) {
+      if (!repliedOnce) {
+        setExtras((e) => [
+          ...e,
+          mine,
+          JSON.stringify({ name: rule.name, text: rule.text }),
+        ]);
+        pushNotice(`微信:${rule.name}回复了你`);
+        setRepliedOnce(true);
+      } else {
+        setExtras((e) => [...e, mine]);
+      }
+    } else {
+      const pool = base.likes.filter((n) => n !== p.owner);
+      const replier = pool.length
+        ? pool[Math.floor(Math.random() * pool.length)]
+        : "";
+      const reply = JSON.stringify({
+        name: replier,
+        text: "哦哟当事人来了，有什么想法吗kkkk",
+      });
+      setExtras((e) => [...e, mine, ...(replier ? [reply] : [])]);
+      if (replier) pushNotice(`微信:${replier}回复了你`);
+    }
     setDraft("");
   };
   return (
