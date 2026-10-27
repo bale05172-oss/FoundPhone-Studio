@@ -30,6 +30,7 @@ import {
   SearchBox,
   Tabs,
   useContent,
+  WeiboHotBoard,
   type Props,
 } from "./shared";
 function Actions({ p, item }: { p: Props; item: Item }) {
@@ -92,6 +93,7 @@ function WeiboActions({ p, item }: { p: Props; item: Item }) {
 export function WeiboSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "关注");
   const [feed, setFeed] = useState("全部");
+  const [hot, setHot] = useState(true);
   const list = feed === "全部" ? items : items.filter((i) => i.folder === feed);
   return (
     <div className="catalog-skin weibo-ui">
@@ -108,7 +110,9 @@ export function WeiboSkin(p: Props) {
         ))}
       </div>
       <div className="catalog-scroll">
-        {tab === "我" ? (
+        {hot ? (
+          <WeiboHotBoard onClose={() => setHot(false)} />
+        ) : tab === "我" ? (
           <div className="weibo-profile">
             <Avatar name={p.owner ?? "我"} />
             <h2>{p.owner ?? "我"}</h2>
@@ -128,17 +132,18 @@ export function WeiboSkin(p: Props) {
             </div>
           </>
         )}
-        {list.map((i) => (
-          <article className="weibo-post" key={i.id}>
-            <PostHeader p={p} item={i} />
-            <button className="social-body" onClick={() => p.onItem(i)}>
-              <p>{i.body}</p>
-              {i.media && <Media item={i} />}
-            </button>
-            <WeiboActions p={p} item={i} />
-          </article>
-        ))}
-        <Empty items={list} />
+        {!hot &&
+          list.map((i) => (
+            <article className="weibo-post" key={i.id}>
+              <PostHeader p={p} item={i} />
+              <button className="social-body" onClick={() => p.onItem(i)}>
+                <p>{i.body}</p>
+                {i.media && <Media item={i} />}
+              </button>
+              <WeiboActions p={p} item={i} />
+            </article>
+          ))}
+        {!hot && <Empty items={list} />}
       </div>
     </div>
   );

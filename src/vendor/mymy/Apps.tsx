@@ -26,7 +26,7 @@ import {
   Compass,
 } from "lucide-react";
 import type { SkinProps } from "../../AppSkins";
-import { Avatar, Media } from "../../skins/shared";
+import { Avatar, Media, WeiboHotBoard } from "../../skins/shared";
 import { useSkinState } from "../../skinState";
 import { makeItem, type Item } from "../../schema";
 import "./ui.css";
@@ -661,6 +661,7 @@ export function MymyX(p: SkinProps) {
     [dmMsg, setDmMsg] = useSkinState<string[]>(p, "mymyXDm", []),
     [dmDraft, setDmDraft] = useState(""),
     [expose, setExpose] = useState(false);
+  const [wbHot, setWbHot] = useState(false);
   const [myPosts, setMyPosts] = useState<Item[]>(() => {
     try {
       return JSON.parse(localStorage.getItem("x-myposts") || "[]") as Item[];
@@ -780,6 +781,7 @@ export function MymyX(p: SkinProps) {
         shengReplies[Math.floor(Math.random() * shengReplies.length)],
     ]);
     setExpose(true);
+    setWbHot(true);
   };
   const isLiked = (id: string) =>
     typeof p.ui?.["liked-" + id] === "boolean"
@@ -1036,6 +1038,13 @@ export function MymyX(p: SkinProps) {
               <span>{t.text}</span>
             </button>
           ))}
+        </div>
+      )}
+      {wbHot && (
+        <div className="xweibohot" onClick={() => setWbHot(false)}>
+          <div onClick={(e) => e.stopPropagation()}>
+            <WeiboHotBoard onClose={() => setWbHot(false)} />
+          </div>
         </div>
       )}
       {expose && exposePost && (

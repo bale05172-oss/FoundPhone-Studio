@@ -5,6 +5,7 @@ import {
   LockKeyhole,
   Plus,
   Search,
+  X,
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import type { SkinProps } from "../AppSkins";
@@ -212,4 +213,75 @@ export function useContent(p: Props, first: string) {
 }
 export function groupItems(items: Item[], fallback = "未分类") {
   return [...new Set(items.map((i) => i.folder || fallback))];
+}
+export function WeiboHotBoard({ onClose }: { onClose?: () => void }) {
+  const [board, setBoard] = useState<"热搜榜" | "文娱榜">("热搜榜");
+  const rows =
+    board === "热搜榜"
+      ? [
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+          ["kpop某女星竟被公开出柜", "热"],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+        ]
+      : [
+          ["裴珠泫疑似有位多年女友", "爆"],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+          ["xxxxxxxxx", ""],
+        ];
+  return (
+    <div className="weibo-hot">
+      <header className="weibo-hot-head">
+        <b>微博热搜</b>
+        {onClose && (
+          <button aria-label="关闭热搜" onClick={onClose}>
+            <X size={16} />
+          </button>
+        )}
+      </header>
+      <nav className="weibo-hot-tabs">
+        {(["热搜榜", "文娱榜"] as const).map((t) => (
+          <button
+            key={t}
+            className={board === t ? "selected" : ""}
+            onClick={() => setBoard(t)}
+          >
+            {t}
+          </button>
+        ))}
+      </nav>
+      <ol className="weibo-hot-list">
+        {rows.map(([text, tag], n) => (
+          <li key={n}>
+            <span className={"weibo-hot-rank" + (n < 3 ? " top" : "")}>
+              {n + 1}
+            </span>
+            <span className="weibo-hot-text">{text}</span>
+            {tag && (
+              <em
+                className={
+                  "weibo-hot-tag" + (tag === "爆" ? " boom" : " hot")
+                }
+              >
+                {tag}
+              </em>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
 }
