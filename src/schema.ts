@@ -229,7 +229,7 @@ export function safeMedia(value: string) {
     return value;
   // 允许同源本地媒体资源（相对路径，供本地演示故事引用 public 资产）
   if (
-    /^(?:\.?\/)?(?:audio|media|images)\/[a-zA-Z0-9._\-]+\.(?:m4a|mp3|wav|ogg|webm|mp4|png|jpe?g|webp|gif)$/i.test(
+    /^(?:\.?\/)?(?:audio|media|images)\/[a-zA-Z0-9._-]+\.(?:m4a|mp3|wav|ogg|webm|mp4|png|jpe?g|webp|gif)$/i.test(
       value,
     )
   )

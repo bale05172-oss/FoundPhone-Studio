@@ -334,7 +334,6 @@ function PhoneRuntime({
           notifications: [...runtimeRef.current.notifications, text],
         });
       }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
   const dismissNotice = (index: number) =>

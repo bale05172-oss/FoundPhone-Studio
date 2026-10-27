@@ -721,7 +721,6 @@ export function MymyX(p: SkinProps) {
         setSelDm(dm);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const randName = () => "X用户" + (1000 + Math.floor(Math.random() * 9000));
   const myPostComments = [
