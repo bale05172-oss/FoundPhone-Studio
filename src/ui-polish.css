@@ -758,10 +758,11 @@
 }
 .ios18 .now-playing-bar {
   position: absolute;
-  left: 10px;
+  left: 50%;
   right: auto;
   width: 200px;
-  bottom: 110px;
+  transform: translateX(-50%);
+  bottom: 145px;
   z-index: 60;
   display: flex;
   align-items: center;
