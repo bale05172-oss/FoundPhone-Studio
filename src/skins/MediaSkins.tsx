@@ -1,4 +1,5 @@
 import { AudioPlayer, useTrack } from "../audio";
+import { musicNext, musicPlayItem, musicToggle, useMusic } from "../music";
 import { useSkinState } from "../skinState";
 import {
   Bookmark,
@@ -61,8 +62,8 @@ function TrackPlayer({
 }
 export function SpotifySkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "首页");
-  const [playlist, setPlaylist] = useState(""),
-    [track, setTrack] = useTrack(p, items);
+  const [playlist, setPlaylist] = useState("");
+  const music = useMusic();
   const list = playlist
     ? items.filter((i) => (i.folder || "我的音乐") === playlist)
     : items;
@@ -107,7 +108,8 @@ export function SpotifySkin(p: Props) {
             <button
               key={i.id}
               onClick={() => {
-                setTrack(i);
+                musicPlayItem(i);
+                p.onRead(i.id);
               }}
             >
               <span>{n + 1}</span>
@@ -123,18 +125,33 @@ export function SpotifySkin(p: Props) {
         </div>
         <Empty items={list} />
       </div>
-      {track && (
-        <TrackPlayer
-          item={track}
-          p={p}
-          onNext={() =>
-            setTrack(
-              items[
-                (items.findIndex((i) => i.id === track.id) + 1) % items.length
-              ],
-            )
-          }
-        />
+      {music.current && (
+        <div className="track-player">
+          {(() => {
+            const current = music.current;
+            return (
+              <>
+                <button onClick={() => p.onItem(current)}>
+                  <Music size={20} />
+                  <span>
+                    {current.title}
+                    <small>{current.sender}</small>
+                  </span>
+                </button>
+                <button
+                  className="track-toggle"
+                  aria-label={music.playing ? "暂停" : "播放"}
+                  onClick={musicToggle}
+                >
+                  {music.playing ? "❚❚" : "▶"}
+                </button>
+                <button aria-label="下一首" onClick={musicNext}>
+                  <SkipForward size={19} />
+                </button>
+              </>
+            );
+          })()}
+        </div>
       )}
       <Tabs
         tabs={["首页", "搜索", "音乐库"]}

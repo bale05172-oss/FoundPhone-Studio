@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import type { SkinProps } from "./AppSkins";
 import { safeMedia, type Item } from "./schema";
 import { useSkinState } from "./skinState";
+import { musicResume, musicSuspend } from "./music";
 export function useTrack(
   p: SkinProps,
   items: Item[],
@@ -48,20 +49,33 @@ export function AudioPlayer({ p, item }: { p: SkinProps; item: Item }) {
     audio.addEventListener("loadedmetadata", restore, { once: true });
     return () => audio.removeEventListener("loadedmetadata", restore);
   }, [item.id]);
+  useEffect(
+    () => () => {
+      // 应用关闭时音频元素被卸载，直接恢复被暂停的音乐
+      musicResume("file");
+    },
+    [],
+  );
   return (
     <audio
       ref={element}
       controls
       src={safeMedia(item.media)}
       aria-label={`播放${item.title}`}
+      onPlay={() => musicSuspend("file")}
       onTimeUpdate={(e) => {
         if (e.currentTarget.isConnected) commit(e.currentTarget.currentTime);
       }}
       onPause={(e) => {
+        musicResume("file");
         if (e.currentTarget.isConnected)
           commit(e.currentTarget.currentTime, true);
       }}
-      onEnded={(e) => commit(e.currentTarget.currentTime, true)}
+      onEnded={(e) => {
+        musicResume("file");
+        if (e.currentTarget.isConnected)
+          commit(e.currentTarget.currentTime, true);
+      }}
     />
   );
 }

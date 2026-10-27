@@ -35,6 +35,14 @@ import "./ui-polish.css";
 import { WeChatSkin, WhatsAppSkin } from "./AppSkins";
 import { RichText } from "./RichText";
 import {
+  MusicHost,
+  musicIsAutoStarted,
+  musicReset,
+  musicResume,
+  musicStartQueue,
+  musicSuspend,
+} from "./music";
+import {
   useEffect,
   useState,
   useRef,
@@ -278,10 +286,22 @@ function PhoneRuntime({
   };
   const installedApps = work.apps.filter((a) => a.installed);
   const apps = installedApps.filter((a) => a.visible);
+  const maybeAutoStartMusic = () => {
+    if (creator || musicIsAutoStarted()) return;
+    const songs = (work.data.spotify ?? [])
+      .filter((i) => i.kind === "audio" && safeMedia(i.media))
+      .sort(
+        (a, b) =>
+          Number(String(a.meta?.order ?? 99)) -
+          Number(String(b.meta?.order ?? 99)),
+      );
+    if (songs.length) musicStartQueue(songs, true);
+  };
   const unlock = (pin = "") => {
     if (!work.phone.passcode || pin === work.phone.passcode) {
       setLocked(false);
       setPinOpen(false);
+      maybeAutoStartMusic();
       event("password", pin);
     } else {
       setPinError("密码不正确");
@@ -317,6 +337,7 @@ function PhoneRuntime({
       style={{ "--phone-scale": deviceScale } as CSSProperties}
       className={`phone-shell ios18 ${work.phone.theme === "dark" ? "dark-phone" : ""}`}
     >
+      <MusicHost visible={!locked && !app} onOpenSpotify={() => open("spotify")} />
       <KeyboardContext.Provider value={setKeyboard}>
         <div
           className={`phone-screen wallpaper-${work.phone.wallpaper} ${locked ? "is-locked" : ""} ${app ? "in-app" : ""} ${keyboard ? "keyboard-open" : ""}`}
@@ -600,6 +621,7 @@ function PhoneRuntime({
               <p>{s.endings[s.endings.length - 1]}</p>
               <button
                 onClick={() => {
+                  musicReset();
                   update(dispatch(work, initialRuntime(work), "start"));
                   setApp("");
                   setLocked(true);
@@ -641,7 +663,9 @@ function PhoneRuntime({
                         autoPlay
                         controls
                         src={safeMedia(record.media)}
+                        onPlay={() => musicSuspend("call")}
                         onEnded={() => {
+                          musicResume("call");
                           const call = runtimeRef.current.incomingCall;
                           if (call)
                             update(

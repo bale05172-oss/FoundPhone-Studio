@@ -6,9 +6,10 @@ import {
   Plus,
   Search,
 } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import type { SkinProps } from "../AppSkins";
 import { safeMedia, type Item } from "../schema";
+import { musicResume, musicSuspend } from "../music";
 export type Props = SkinProps;
 export const meta = (
   i: Pick<Item, "meta"> | undefined,
@@ -111,9 +112,23 @@ export function Media({
   className?: string;
 }) {
   const src = safeMedia(item.media);
+  useEffect(
+    () => () => {
+      // 应用关闭时音频元素被卸载，直接恢复被暂停的音乐
+      musicResume("file");
+    },
+    [],
+  );
   return src ? (
     item.kind === "audio" ? (
-      <audio className={className} controls src={src} />
+      <audio
+        className={className}
+        controls
+        src={src}
+        onPlay={() => musicSuspend("file")}
+        onPause={() => musicResume("file")}
+        onEnded={() => musicResume("file")}
+      />
     ) : item.kind === "video" ? (
       <video
         className={className}

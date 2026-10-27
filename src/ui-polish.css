@@ -704,3 +704,118 @@
   border-radius: 12px;
   background: #0000002e;
 }
+
+/* -------------------------------------------------------------
+ * 21. 剧情素材：Spotify 全局音乐（解锁自动播放歌单）
+ *     弹窗正在播放 + 桌面后台迷你播放条
+ * ------------------------------------------------------------- */
+.ios18 .now-playing-popup {
+  position: absolute;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px 9px 10px;
+  border-radius: 999px;
+  background: #17171adf;
+  color: #f2f4f6;
+  box-shadow: 0 10px 30px #00000055;
+  max-width: 88%;
+}
+.ios18 .now-playing-popup .npp-mark {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #1ed760;
+  color: #06140c;
+  font-size: 15px;
+  font-weight: 800;
+  flex: none;
+}
+.ios18 .now-playing-popup .npp-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  min-width: 0;
+}
+.ios18 .now-playing-popup .npp-text small {
+  font-size: 9px;
+  opacity: 0.7;
+  letter-spacing: 0.08em;
+}
+.ios18 .now-playing-popup .npp-text strong {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 46vw;
+}
+.ios18 .now-playing-bar {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 210px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  background: #17171adf;
+  color: #f2f4f6;
+  box-shadow: 0 12px 34px #00000066;
+}
+.ios18 .now-playing-bar .npb-art {
+  width: 42px;
+  height: 42px;
+  flex: none;
+  border-radius: 9px;
+  background: #1ed760;
+  color: #06140c;
+  font-size: 20px;
+  font-weight: 800;
+}
+.ios18 .now-playing-bar .npb-info {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+.ios18 .now-playing-bar .npb-info strong {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ios18 .now-playing-bar .npb-info small {
+  font-size: 10px;
+  opacity: 0.7;
+}
+.ios18 .now-playing-bar .npb-toggle {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 50%;
+  background: #ffffff22;
+  color: #f2f4f6;
+  font-size: 12px;
+}
+.ios18 .spotify-ui .track-player .track-toggle {
+  border-radius: 50%;
+  background: #1ed760;
+  color: #06140c;
+  font-size: 13px;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  align-self: center;
+}
+

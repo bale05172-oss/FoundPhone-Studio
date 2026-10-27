@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "锁屏密码 0329，壁纸为暮色水边；微信联系人裴柱现；KKT 聊天后裴柱现来电，可接听或拒接。",
-  "revision": 12,
+  "revision": 13,
   "phone": {
     "owner": "机主",
     "date": "2026-10-24",
@@ -833,12 +833,116 @@
     ],
     "spotify": [
       {
-        "id": "test-item-spotify",
-        "title": "测试内容",
-        "body": "这是一条测试内容。",
-        "sender": "测试用户",
+        "id": "spotify-tumyeong-usan",
+        "title": "투명 우산 (Don't Let Me Go) (透明雨伞)",
+        "sender": "SHINee",
+        "body": "",
+        "kind": "audio",
+        "media": "audio/song-01-tumyeong-usan.m4a",
+        "folder": "我的音乐",
+        "meta": {
+          "album": "单曲",
+          "duration": "3:43",
+          "order": "1"
+        }
+      },
+      {
+        "id": "spotify-love-can-make-a-way",
+        "title": "Love Can Make A Way",
+        "sender": "Irene",
+        "body": "",
+        "kind": "audio",
+        "media": "audio/song-02-love-can-make-a-way.m4a",
+        "folder": "我的音乐",
+        "meta": {
+          "album": "单曲",
+          "duration": "3:32",
+          "order": "2"
+        }
+      },
+      {
+        "id": "spotify-love-me-more",
+        "title": "Love Me More",
+        "sender": "Apink",
+        "body": "",
+        "kind": "audio",
+        "media": "audio/song-03-love-me-more.m4a",
+        "folder": "我的音乐",
+        "meta": {
+          "album": "单曲",
+          "duration": "3:14",
+          "order": "3"
+        }
+      },
+      {
+        "id": "spotify-the-only",
+        "title": "The Only",
+        "sender": "Irene",
+        "body": "",
+        "kind": "audio",
+        "media": "audio/song-04-the-only.m4a",
+        "folder": "我的音乐",
+        "meta": {
+          "album": "单曲",
+          "duration": "3:12",
+          "order": "4"
+        }
+      },
+      {
+        "id": "spotify-nuna-neomu-yeppeo",
+        "title": "누난 너무 예뻐 （姐姐真漂亮）",
+        "sender": "SHINee",
+        "body": "",
+        "kind": "audio",
+        "media": "audio/song-05-nuna-neomu-yeppeo.m4a",
+        "folder": "我的音乐",
+        "meta": {
+          "album": "单曲",
+          "duration": "3:33",
+          "order": "5"
+        }
+      },
+      {
+        "id": "spotify-like-a-flower",
+        "title": "Like A Flower",
+        "sender": "Irene",
+        "body": "",
+        "kind": "audio",
+        "media": "audio/song-06-like-a-flower.m4a",
+        "folder": "我的音乐",
+        "meta": {
+          "album": "单曲",
+          "duration": "3:13",
+          "order": "6"
+        }
+      },
+      {
+        "id": "spotify-suddenly",
+        "title": "갑자기 (Suddenly)",
+        "sender": "I.O.I",
+        "body": "",
+        "kind": "audio",
+        "media": "audio/song-07-suddenly.m4a",
+        "folder": "我的音乐",
+        "meta": {
+          "album": "单曲",
+          "duration": "3:15",
+          "order": "7"
+        }
+      },
+      {
+        "id": "spotify-biggest-fan",
+        "title": "Biggest Fan",
+        "sender": "Irene",
+        "body": "",
         "kind": "text",
-        "meta": {}
+        "media": "",
+        "folder": "我的音乐",
+        "meta": {
+          "album": "单曲",
+          "duration": "",
+          "order": ""
+        }
       }
     ],
     "netflix": [
