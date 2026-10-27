@@ -101,6 +101,19 @@
   align-items: flex-start;
   gap: 2px;
   flex: none;
+  max-width: 78%;
+}
+.mymy-ui .kzstack .kzbub:not(.kzimg) {
+  max-width: 100%;
+  word-break: break-word;
+}
+.mymy-ui .kzbub.kzimg {
+  max-width: 42%;
+}
+.mymy-ui .kzbub.kzimg img {
+  max-height: 150px;
+  width: auto;
+  border-radius: 10px;
 }
 .mymy-ui .kzm.kzmy .kzstack {
   align-items: flex-end;
