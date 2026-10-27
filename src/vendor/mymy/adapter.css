@@ -95,16 +95,21 @@
 .mymy-ui .kzm.kzmy .kzbub {
   background: #fee500;
 }
-.mymy-ui .kzbub .kzcap {
-  display: block;
-  padding-top: 6px;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #222;
-  white-space: pre-wrap;
+.mymy-ui .kzstack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  flex: none;
 }
-.mymy-ui .kzm.kzot .kzbub .kzcap {
-  color: #111;
+.mymy-ui .kzm.kzmy .kzstack {
+  align-items: flex-end;
+}
+.mymy-ui .kzm.kzmy .kzstack .kzbub {
+  background: #fee500;
+}
+.mymy-ui .kzm.kzot .kzstack .kzbub {
+  background: white;
 }
 .mymy-ui .kzinp {
   margin-bottom: 12px;
