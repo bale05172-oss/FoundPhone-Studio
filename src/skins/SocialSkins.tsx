@@ -12,6 +12,7 @@ import {
   Home,
   MessageCircle,
   Repeat2,
+  Search,
   User,
   Users,
   Share2,
@@ -325,14 +326,84 @@ export function FacebookSkin(p: Props) {
     </div>
   );
 }
+const REDBOOK_SEARCH_HISTORY = [
+  "女朋友太黏人了怎么办",
+  "纪念日给女朋友送什么礼物比较好",
+  "有分离焦虑症应该吃什么药",
+  "女朋友体力太好了应该怎么补补身体",
+  "怎么治疗腱鞘炎",
+  "太喜欢女朋友了怎么办",
+  "年上姐姐喜欢什么样的类型",
+  "情侣同款",
+  "在一起这么多年怎么样让女朋友对我保持新鲜感",
+  "谈恋爱一百零八招之分分钟拿下心选姐",
+];
 export function RedbookSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "发现");
+  const [searching, setSearching] = useState(false);
   const list =
     tab === "收藏"
       ? items.filter((i) => i.favorite)
       : tab === "关注"
         ? items.filter((i) => i.folder === "关注")
         : items;
+  if (searching) {
+    return (
+      <div className="catalog-skin redbook-ui">
+        <Header p={p} />
+        <div className="redbook-search-page">
+          <label className="catalog-search redbook-search-input">
+            <Search size={15} />
+            <input
+              autoFocus
+              aria-label="搜索"
+              placeholder="搜索"
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+            />
+            <button
+              className="redbook-search-cancel"
+              onClick={() => {
+                setQ("");
+                setSearching(false);
+              }}
+            >
+              取消
+            </button>
+          </label>
+          <div className="catalog-scroll redbook-results">
+            {q ? (
+              <>
+                <div className="redbook-masonry">
+                  {list.map((i) => (
+                    <button key={i.id} onClick={() => p.onItem(i)}>
+                      <Media item={i} />
+                      <strong>{i.title}</strong>
+                    </button>
+                  ))}
+                </div>
+                <Empty items={list} />
+              </>
+            ) : (
+              <div className="redbook-history">
+                <h3>搜索记录</h3>
+                {REDBOOK_SEARCH_HISTORY.map((term) => (
+                  <button
+                    key={term}
+                    className="redbook-history-item"
+                    onClick={() => setQ(term)}
+                  >
+                    <Search size={13} />
+                    <span>{term}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="catalog-skin redbook-ui">
       <Header p={p} />
@@ -348,7 +419,7 @@ export function RedbookSkin(p: Props) {
         ))}
       </div>
       <div className="catalog-scroll">
-        <SearchBox value={q} set={setQ} />
+        <SearchBox value={q} set={setQ} onFocus={() => setSearching(true)} />
         <div className="redbook-masonry">
           {list.map((i) => (
             <button key={i.id} onClick={() => p.onItem(i)}>

@@ -52,12 +52,47 @@ export function ensureAppStore(work: Work): Work {
         ],
       };
 }
+export function seedHomePositions(
+  entries: HomeEntry[],
+): DeviceLayout["positions"] {
+  const positions: DeviceLayout["positions"] = {};
+  const apps = entries.filter((e) => e.kind === "app");
+  const occupied = new Set<string>();
+  let i = 0;
+  for (const e of apps) {
+    let page = 0;
+    let x = i % 4;
+    let y = Math.floor(i / 4);
+    if (i >= 20) {
+      const j = i - 20;
+      page = 1 + Math.floor(j / 24);
+      const k = j % 24;
+      x = k % 4;
+      y = Math.floor(k / 4);
+    }
+    while (occupied.has(`${page}:${x}:${y}`)) {
+      x += 1;
+      if (x === 4) {
+        x = 0;
+        y += 1;
+      }
+      if (y > 5) {
+        page += 1;
+        y = 0;
+      }
+    }
+    positions[e.key] = { page, x, y };
+    occupied.add(`${page}:${x}:${y}`);
+    i += 1;
+  }
+  return positions;
+}
 export function defaultLayout(input: Work): DeviceLayout {
   const w = ensureAppStore(input);
-  return {
+  const layout: DeviceLayout = {
     version: 1,
     workId: w.id,
-    previewLayoutRevision: w.id === "ui-test-phone-v2" ? 1 : 0,
+    previewLayoutRevision: w.id === "ui-test-phone-v2" ? 6 : 0,
     apps: structuredClone(w.apps)
       .sort((a, b) => (a.id === "appstore" ? -1 : b.id === "appstore" ? 1 : 0))
       .map((a) =>
@@ -70,6 +105,9 @@ export function defaultLayout(input: Work): DeviceLayout {
     cleared: [],
     positions: {},
   };
+  if (w.id === "ui-test-phone-v2")
+    layout.positions = seedHomePositions(homeEntries(layout));
+  return layout;
 }
 export function validateLayout(raw: unknown, input: Work) {
   const w = ensureAppStore(input);
@@ -94,7 +132,7 @@ export function validateLayout(raw: unknown, input: Work) {
     store.visible = true;
     store.folder = "";
   }
-  if (w.id === "ui-test-phone-v2" && layout.previewLayoutRevision < 1) {
+  if (w.id === "ui-test-phone-v2" && layout.previewLayoutRevision < 6) {
     const visibleApps = ["wechat", "douyin"];
     for (const app of layout.apps) {
       if (
@@ -112,11 +150,19 @@ export function validateLayout(raw: unknown, input: Work) {
         }
       }
     }
-    layout.order = [
-      ...visibleApps,
-      ...layout.order.filter((id) => !visibleApps.includes(id)),
-    ];
-    layout.previewLayoutRevision = 1;
+    for (const app of layout.apps) {
+      const authored = w.apps.find((a) => a.id === app.id);
+      if (authored) {
+        app.installed = authored.installed;
+        app.visible = authored.visible;
+        app.dock = authored.dock;
+      }
+    }
+    layout.order = w.apps
+      .filter((a) => a.installed && a.visible && !a.dock)
+      .map((a) => a.id);
+    layout.positions = seedHomePositions(homeEntries(layout));
+    layout.previewLayoutRevision = 6;
   }
   const entries = homeEntries(layout),
     packed = packHome(entries, layout.positions);

@@ -68,10 +68,12 @@ export function SearchBox({
   value,
   set,
   placeholder = "搜索",
+  onFocus,
 }: {
   value: string;
   set: (s: string) => void;
   placeholder?: string;
+  onFocus?: () => void;
 }) {
   return (
     <label className="catalog-search">
@@ -81,6 +83,7 @@ export function SearchBox({
         placeholder={placeholder}
         value={value}
         onChange={(e) => set(e.target.value)}
+        onFocus={onFocus}
       />
     </label>
   );

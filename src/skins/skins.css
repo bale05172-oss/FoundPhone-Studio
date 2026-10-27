@@ -2373,6 +2373,58 @@
   margin-left: auto;
   color: #999;
 }
+.redbook-search-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.redbook-search-input {
+  margin: 8px 10px 4px;
+  padding-right: 46px;
+}
+.redbook-search-cancel {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: none;
+  color: #ee4155;
+  font-size: 13px;
+  padding: 6px;
+}
+.redbook-results {
+  flex: 1;
+  padding-bottom: 12px;
+}
+.redbook-history h3 {
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  padding: 12px 12px 4px;
+}
+.redbook-history-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fff;
+  text-align: left;
+  color: #333;
+  font-size: 13px;
+}
+.redbook-history-item svg {
+  color: #bbb;
+  flex-shrink: 0;
+}
+.redbook-history-item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .pinterest-ui {
   --app-accent: #bd3545;
 }

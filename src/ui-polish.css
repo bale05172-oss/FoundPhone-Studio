@@ -760,26 +760,26 @@
   position: absolute;
   left: 10px;
   right: auto;
-  width: 288px;
-  bottom: 132px;
+  width: 200px;
+  bottom: 110px;
   z-index: 60;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 14px;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 13px;
   background: #17171adf;
   color: #f2f4f6;
   box-shadow: 0 12px 34px #00000066;
 }
 .ios18 .now-playing-bar .npb-art {
-  width: 42px;
-  height: 42px;
+  width: 34px;
+  height: 34px;
   flex: none;
-  border-radius: 9px;
+  border-radius: 8px;
   background: #1ed760;
   color: #06140c;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 800;
 }
 .ios18 .now-playing-bar .npb-info {
@@ -801,13 +801,13 @@
   opacity: 0.7;
 }
 .ios18 .now-playing-bar .npb-toggle {
-  width: 34px;
-  height: 34px;
+  width: 28px;
+  height: 28px;
   flex: none;
   border-radius: 50%;
   background: #ffffff22;
   color: #f2f4f6;
-  font-size: 12px;
+  font-size: 11px;
 }
 .ios18 .spotify-ui .track-player .track-toggle {
   border-radius: 50%;
