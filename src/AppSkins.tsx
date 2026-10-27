@@ -196,13 +196,13 @@ function MomentCard({ item, p }: { item: Item; p: SkinProps }) {
     }
     return arr;
   });
-  const shownLikes = liked ? [...shuffledLikes, p.owner] : shuffledLikes;
+  const shownLikes = liked ? [...shuffledLikes, "我"] : shuffledLikes;
   const avatarOf = (name: string) =>
     p.contacts?.find((c) => c.name === name)?.avatar ?? "";
   const submit = () => {
     const text = draft.trim();
     if (!text) return;
-    const mine = JSON.stringify({ name: p.owner, text });
+    const mine = JSON.stringify({ name: "我", text });
     const rule = item.moment?.reply ?? null;
     if (rule) {
       if (!repliedOnce) {
@@ -212,7 +212,7 @@ function MomentCard({ item, p }: { item: Item; p: SkinProps }) {
           JSON.stringify({
             name: rule.name,
             text: rule.text,
-            replyTo: p.owner,
+            replyTo: "我",
           }),
         ]);
         pushNotice(`微信:${rule.name}回复了你`);
@@ -233,7 +233,7 @@ function MomentCard({ item, p }: { item: Item; p: SkinProps }) {
       const reply = JSON.stringify({
         name: replier,
         text: replyText,
-        replyTo: p.owner,
+        replyTo: "我",
       });
       setExtras((e) => [...e, mine, ...(replier ? [reply] : [])]);
       if (replier) pushNotice(`微信:${replier}回复了你`);

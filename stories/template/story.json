@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "锁屏密码 0329，壁纸为暮色水边；微信联系人裴柱现；KKT 聊天后裴柱现来电，可接听或拒接。",
-  "revision": 23,
+  "revision": 24,
   "phone": {
     "owner": "机主",
     "date": "2026-10-24",
