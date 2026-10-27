@@ -340,7 +340,7 @@ const REDBOOK_SEARCH_HISTORY = [
 ];
 export function RedbookSkin(p: Props) {
   const { tab, setTab, q, setQ, items } = useContent(p, "发现");
-  const [searching, setSearching] = useState(false);
+  const [searching, setSearching] = useState(true);
   const list =
     tab === "收藏"
       ? items.filter((i) => i.favorite)
