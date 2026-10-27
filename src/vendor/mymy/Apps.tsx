@@ -669,6 +669,29 @@ export function MymyX(p: SkinProps) {
     }
   });
   const [postDraft, setPostDraft] = useState("");
+  const [noticeCount, setNoticeCount] = useSkinState<number>(
+    p,
+    "mymyXNotices",
+    0,
+  );
+  const [toasts, setToasts] = useState<{ id: number; text: string }[]>([]);
+  const [toastQueue, setToastQueue] = useState<string[]>([]);
+  const lastPost = useRef<Item | null>(null);
+  const toastSeq = useRef(0);
+  useEffect(() => {
+    if (!toastQueue.length) return;
+    const t = setTimeout(() => {
+      const text = toastQueue[0];
+      const id = ++toastSeq.current;
+      setToasts((q) => [...q, { id, text }]);
+      setToastQueue((q) => q.slice(1));
+      setTimeout(
+        () => setToasts((q) => q.filter((x) => x.id !== id)),
+        2800,
+      );
+    }, 1100);
+    return () => clearTimeout(t);
+  }, [toastQueue]);
   const dms = p.items.filter((i) => i.folder === "私信");
   const exposePost = p.items.find((i) => i.id === "twitter-expose");
   useEffect(() => {
@@ -729,6 +752,15 @@ export function MymyX(p: SkinProps) {
     setMyPosts(next);
     localStorage.setItem("x-myposts", JSON.stringify(next));
     setPostDraft("");
+    lastPost.current = post;
+    const repliers = post.comments.map((c) => c.split(/[：:]/)[0]);
+    const lines: string[] = [];
+    repliers.forEach((nm) => lines.push(nm + " 回复了你"));
+    for (let i = 0; i < 12; i++) lines.push(randName() + " 赞了你的帖子");
+    for (let i = 0; i < 9; i++) lines.push(randName() + " 转发了你的帖子");
+    lines.sort(() => Math.random() - 0.5);
+    setNoticeCount((c) => (c ?? 0) + lines.length);
+    setToastQueue(lines);
   };
   const shengReplies = [
     "啊西八，这女人居然这么嚣张。",
@@ -981,10 +1013,31 @@ export function MymyX(p: SkinProps) {
               disabled={n === 2}
             >
               <Icon />
+              {n === 2 && noticeCount > 0 && (
+                <span className="kzxbadge">
+                  {noticeCount > 99 ? "99+" : noticeCount}
+                </span>
+              )}
             </button>
           ))}
         </nav>
       </div>
+      {toasts.length > 0 && (
+        <div className="xnotify">
+          {toasts.map((t) => (
+            <button
+              key={t.id}
+              className="xnotify-toast"
+              onClick={() => {
+                if (lastPost.current) p.onItem(lastPost.current);
+              }}
+            >
+              <Avatar name={t.text.split(" ")[0]} />
+              <span>{t.text}</span>
+            </button>
+          ))}
+        </div>
+      )}
       {expose && exposePost && (
         <div className="xexpose" role="dialog" aria-label="曝光帖">
           <div className="xexpose-card">

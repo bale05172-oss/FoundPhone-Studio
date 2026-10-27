@@ -4388,4 +4388,54 @@
 .kzxcompose button:disabled {
   opacity: 0.5;
 }
+/* X 通知红点 */
+.kzxnav button {
+  position: relative;
+}
+.kzxbadge {
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 9px;
+  background: #f91880;
+  color: #fff;
+  font-size: 9px;
+  line-height: 16px;
+  text-align: center;
+  padding: 0 4px;
+}
+/* X 通知弹窗流 */
+.xnotify {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 82%;
+  pointer-events: none;
+}
+.xnotify-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(22, 24, 28, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 7px 11px;
+  color: #eee;
+  font-size: 12px;
+  text-align: left;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+.xnotify-toast span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
