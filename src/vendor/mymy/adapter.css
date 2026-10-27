@@ -108,12 +108,20 @@
   word-break: break-word;
 }
 .mymy-ui .kzbub.kzimg {
-  max-width: 42%;
+  max-width: 48%;
+  overflow: visible;
 }
 .mymy-ui .kzbub.kzimg img {
-  max-height: 150px;
+  display: block;
   width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
   border-radius: 10px;
+}
+.mymy-ui .kzstack .kzbub.kzimg {
+  max-width: 100%;
 }
 .mymy-ui .kzm.kzmy .kzstack {
   align-items: flex-end;
