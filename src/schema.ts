@@ -56,6 +56,8 @@ export const itemSchema = z.object({
         })
         .nullable()
         .default(null),
+      replyText: z.string().default("哦哟当事人来了，有什么想法吗kkkk"),
+      replyExclude: z.array(z.string()).default([]),
     })
     .nullable()
     .default(null),

@@ -209,7 +209,11 @@ function MomentCard({ item, p }: { item: Item; p: SkinProps }) {
         setExtras((e) => [
           ...e,
           mine,
-          JSON.stringify({ name: rule.name, text: rule.text }),
+          JSON.stringify({
+            name: rule.name,
+            text: rule.text,
+            replyTo: p.owner,
+          }),
         ]);
         pushNotice(`微信:${rule.name}回复了你`);
         setRepliedOnce(true);
@@ -217,13 +221,19 @@ function MomentCard({ item, p }: { item: Item; p: SkinProps }) {
         setExtras((e) => [...e, mine]);
       }
     } else {
-      const pool = base.likes.filter((n) => n !== p.owner);
+      const exclude = item.moment?.replyExclude ?? [];
+      const pool = base.likes.filter(
+        (n) => n !== p.owner && !exclude.includes(n),
+      );
       const replier = pool.length
         ? pool[Math.floor(Math.random() * pool.length)]
         : "";
+      const replyText =
+        item.moment?.replyText ?? "哦哟当事人来了，有什么想法吗kkkk";
       const reply = JSON.stringify({
         name: replier,
-        text: "哦哟当事人来了，有什么想法吗kkkk",
+        text: replyText,
+        replyTo: p.owner,
       });
       setExtras((e) => [...e, mine, ...(replier ? [reply] : [])]);
       if (replier) pushNotice(`微信:${replier}回复了你`);
