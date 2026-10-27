@@ -656,7 +656,39 @@ export function MymyX(p: SkinProps) {
     [likes, setLikes] = useSkinState<string[]>(p, "mymyXLikes", []),
     [reposts, setReposts] = useSkinState<string[]>(p, "mymyXReposts", []),
     [marks, setMarks] = useSkinState<string[]>(p, "mymyXMarks", []),
-    [query, setQuery] = useState("");
+    [query, setQuery] = useState(""),
+    [selDm, setSelDm] = useState<Item | null>(null),
+    [dmMsg, setDmMsg] = useSkinState<string[]>(p, "mymyXDm", []),
+    [dmDraft, setDmDraft] = useState(""),
+    [expose, setExpose] = useState(false);
+  const dms = p.items.filter((i) => i.folder === "私信");
+  const exposePost = p.items.find((i) => i.id === "twitter-expose");
+  const randName = () => "X用户" + (1000 + Math.floor(Math.random() * 9000));
+  const shengReplies = [
+    "你闭嘴！！你根本配不上她，你知道我等了她多少年吗？！",
+    "呵，你以为你能得意多久？我已经把你和她的聊天记录全存下来了。",
+    "凭什么？凭什么你这种人可以站在她身边？！我不服！",
+    "我追了她七年，从她出道那天起就看着她……你算什么东西？",
+    "你以为我只有这一张牌吗？等着看吧，我会让你身败名裂。",
+    "她根本不会爱你，她只是玩玩你而已，清醒点吧！",
+    "呜呜呜……我看着她这么多年，她怎么可以谈恋爱……怎么可以和你……",
+    "你最好祈祷我找不到你，否则……呵呵。",
+    "呵，我曝定了，让全世界都知道你这种人不配和她在一起！",
+    "你知道她最爱的颜色吗？你知道她的生日习惯吗？你什么都不懂，凭什么？",
+  ];
+  const sendDm = () => {
+    const t = dmDraft.trim();
+    if (!t) return;
+    const next = [...dmMsg, "我:" + t];
+    setDmDraft("");
+    setDmMsg([
+      ...next,
+      (selDm?.sender ?? "X用户8412") +
+        ":" +
+        shengReplies[Math.floor(Math.random() * shengReplies.length)],
+    ]);
+    setExpose(true);
+  };
   const isLiked = (id: string) =>
     typeof p.ui?.["liked-" + id] === "boolean"
       ? Boolean(p.ui["liked-" + id])
@@ -702,6 +734,79 @@ export function MymyX(p: SkinProps) {
             placeholder="搜索"
           />
         )}
+        {tab === "私信" &&
+          (selDm ? (
+            <div className="kzxfd xdm-thread">
+              <div className="xdm-head">
+                <button
+                  aria-label="返回私信列表"
+                  onClick={() => setSelDm(null)}
+                >
+                  <ArrowLeft />
+                </button>
+                <Avatar name={selDm.sender} src={selDm.avatar} />
+                <b>{selDm.sender}</b>
+                <small>@{selDm.meta.handle || "user"}</small>
+              </div>
+              <div className="xdm-body">
+                <div className="xdm-msg xdm-them">
+                  <span>
+                    <b>{selDm.sender}</b>
+                  </span>
+                  <p>{selDm.body}</p>
+                  <small>{selDm.time.slice(-5)}</small>
+                </div>
+                {dmMsg.map((m, n) => {
+                  const [who, ...rest] = m.split(":");
+                  const text = rest.join(":");
+                  return (
+                    <div
+                      key={n}
+                      className={
+                        "xdm-msg " + (who === "我" ? "xdm-me" : "xdm-them")
+                      }
+                    >
+                      {who !== "我" && <Avatar name={who} />}
+                      <p>{text}</p>
+                    </div>
+                  );
+                })}
+              </div>
+              <form
+                className="xdm-input"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  sendDm();
+                }}
+              >
+                <input
+                  aria-label="发送私信"
+                  value={dmDraft}
+                  onChange={(e) => setDmDraft(e.target.value)}
+                  placeholder="发消息…"
+                />
+                <button>发送</button>
+              </form>
+            </div>
+          ) : (
+            <div className="kzxfd">
+              {dms.map((i) => (
+                <button
+                  className="kzkr"
+                  key={i.id}
+                  onClick={() => setSelDm(i)}
+                >
+                  <Avatar name={i.sender} src={i.avatar} />
+                  <span className="kzkn">
+                    <b>{i.title}</b>
+                    <small>{i.body}</small>
+                  </span>
+                </button>
+              ))}
+              {!dms.length && <Blank />}
+            </div>
+          ))}
+        {tab !== "私信" && (
         <div className="kzxfd">
           {p.items
             .filter((i) => (i.title + i.body).includes(query))
@@ -786,19 +891,69 @@ export function MymyX(p: SkinProps) {
             ))}
           {!p.items.length && <Blank />}
         </div>
+        )}
         <nav className="kzxnav">
           {[Home, Search, Bell, MessageCircle].map((Icon, n) => (
             <button
               key={n}
               aria-label={["时间线", "搜索", "通知", "私信"][n]}
-              onClick={() => n < 2 && setTab(n ? "搜索" : "推荐")}
-              disabled={n > 1}
+              aria-pressed={!selDm && tab === ["推荐", "搜索", "通知", "私信"][n]}
+              onClick={() =>
+                setTab(n === 1 ? "搜索" : n === 3 ? "私信" : "推荐")
+              }
+              disabled={n === 2}
             >
               <Icon />
             </button>
           ))}
         </nav>
       </div>
+      {expose && exposePost && (
+        <div className="xexpose" role="dialog" aria-label="曝光帖">
+          <div className="xexpose-card">
+            <header>
+              <Avatar name={exposePost.sender} src={exposePost.avatar} />
+              <div>
+                <b>{exposePost.sender}</b>
+                <small>
+                  @{exposePost.meta.handle || "user"} ·{" "}
+                  {exposePost.time.slice(-5)}
+                </small>
+              </div>
+              <button aria-label="关闭弹窗" onClick={() => setExpose(false)}>
+                <X />
+              </button>
+            </header>
+            <p className="xexpose-body">{exposePost.body}</p>
+            <div className="xexpose-stats">
+              <span>
+                <Heart size={13} /> {exposePost.likes}
+              </span>
+              <span>
+                <Repeat2 size={13} /> {exposePost.meta.reposts || "—"}
+              </span>
+              <span>
+                <MessageCircle size={13} /> {exposePost.comments.length}
+              </span>
+              <span>
+                <BarChart2 size={13} /> {exposePost.meta.views || "—"}
+              </span>
+            </div>
+            <div className="xexpose-comments">
+              <h4>评论 {exposePost.comments.length}</h4>
+              {exposePost.comments.map((c, n) => (
+                <div className="xexpose-c" key={n}>
+                  <Avatar name={randName()} />
+                  <div>
+                    <b>{randName()}</b>
+                    <p>{c}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

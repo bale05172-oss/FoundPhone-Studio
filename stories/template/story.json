@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "锁屏密码 0329，壁纸为暮色水边；微信联系人裴柱现；KKT 聊天后裴柱现来电，可接听或拒接。",
-  "revision": 25,
+  "revision": 26,
   "phone": {
     "owner": "机主",
     "date": "2026-10-24",
@@ -1106,7 +1106,106 @@
     "forum": [],
     "instagram": [],
     "tiktok": [],
-    "twitter": [],
+    "twitter": [
+      {
+        "id": "twitter-post-1",
+        "title": "X用户2309",
+        "body": "今天又去看樱花了，真的好美，一个人也很快乐🌸",
+        "sender": "X用户2309",
+        "kind": "post",
+        "folder": "时间线",
+        "media": "",
+        "time": "2026-10-24 18:02",
+        "meta": {
+          "handle": "user2309",
+          "views": "1.2万"
+        },
+        "comments": []
+      },
+      {
+        "id": "twitter-post-2",
+        "title": "X用户7745",
+        "body": "谁懂啊，上班第三天就想辞职了……",
+        "sender": "X用户7745",
+        "kind": "post",
+        "folder": "时间线",
+        "media": "",
+        "time": "2026-10-24 19:31",
+        "meta": {
+          "handle": "user7745",
+          "views": "856"
+        },
+        "comments": []
+      },
+      {
+        "id": "twitter-post-3",
+        "title": "X用户5511",
+        "body": "深夜emo，单曲循环中，耳机里的世界才是真的。",
+        "sender": "X用户5511",
+        "kind": "post",
+        "folder": "时间线",
+        "media": "",
+        "time": "2026-10-24 20:47",
+        "meta": {
+          "handle": "user5511",
+          "views": "3021"
+        },
+        "comments": []
+      },
+      {
+        "id": "twitter-dm-sisheng",
+        "title": "X用户8412",
+        "body": "我已经发现你和裴柱现之间的事情了，等着被我曝光吧狗女女！居然谈了这么久。这些年的情爱与时光，终究是错付了！",
+        "sender": "X用户8412",
+        "kind": "text",
+        "folder": "私信",
+        "media": "",
+        "time": "2026-10-24 21:52",
+        "meta": {
+          "handle": "user8412"
+        },
+        "comments": []
+      },
+      {
+        "id": "twitter-expose",
+        "title": "X用户8412",
+        "body": "曝某kpop四代女团top偷偷谈了很多年的恋爱，提示词：五人女团，神颜，门面。恋爱对象为女性。",
+        "sender": "X用户8412",
+        "kind": "post",
+        "folder": "时间线",
+        "media": "",
+        "time": "2026-10-24 21:53",
+        "meta": {
+          "handle": "user8412",
+          "views": "36.7万"
+        },
+        "comments": [
+          "？",
+          "谁啊？",
+          "这集秒解",
+          "？",
+          "我不信。",
+          "如果是女生那可以。",
+          "牛逼",
+          "总比男的好",
+          "有照片吗？看看长啥样",
+          "信她不如信我是秦始皇",
+          "所以到底是谁啊？！我崩溃了",
+          "就那个谁",
+          "lgccw",
+          "信她的人老了我找她卖保健品",
+          "哈哈哈哈哈哈我担是女同",
+          "不要啊，裴柱现是我的",
+          "牛逼，我不活了",
+          "既然都是女的，嫂子可以我不可以？",
+          "很好，离成为裴柱现的女朋友又近了一步。都是女的。",
+          "哦不要啊！我磕的cp be了。",
+          "？",
+          "纳尼",
+          "！我天哪"
+        ]
+      }
+    ],
     "youtube": [],
     "snapchat": [],
     "facebook": [],
