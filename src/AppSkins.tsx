@@ -1,6 +1,7 @@
 import { NativeComposer } from "./DeviceSystem";
 import { useSkinState } from "./skinState";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { consumeMomentsJump, onMomentsJump, pushNotice } from "./momentsBus";
 import {
   ChevronLeft,
   Plus,
@@ -152,10 +153,133 @@ function Compose({
     </div>
   );
 }
+type MomentComment = { name: string; text: string; replyTo?: string };
+function MomentCard({ item, p }: { item: Item; p: SkinProps }) {
+  const base = item.moment ?? { likes: [], comments: [] };
+  const [liked, setLiked] = useSkinState<boolean>(
+    p,
+    `momentLiked-${item.id}`,
+    false,
+  );
+  const [extras, setExtras] = useSkinState<string[]>(
+    p,
+    `momentComments-${item.id}`,
+    [],
+  );
+  const [draft, setDraft] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const extraComments = extras
+    .map((raw): MomentComment | null => {
+      try {
+        const o = JSON.parse(raw);
+        return {
+          name: String(o?.name ?? ""),
+          text: String(o?.text ?? ""),
+          replyTo: o?.replyTo ? String(o.replyTo) : undefined,
+        };
+      } catch {
+        return null;
+      }
+    })
+    .filter((c): c is MomentComment => !!c && !!c.name && !!c.text);
+  const allComments = [...base.comments, ...extraComments];
+  const [shuffledLikes] = useState(() => {
+    const arr = [...base.likes];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  });
+  const shownLikes = liked ? [...shuffledLikes, p.owner] : shuffledLikes;
+  const avatarOf = (name: string) =>
+    p.contacts?.find((c) => c.name === name)?.avatar ?? "";
+  const submit = () => {
+    const text = draft.trim();
+    if (!text) return;
+    const mine = JSON.stringify({ name: p.owner, text });
+    const pool = base.likes.filter((n) => n !== p.owner);
+    const replier = pool.length
+      ? pool[Math.floor(Math.random() * pool.length)]
+      : "";
+    const reply = JSON.stringify({
+      name: replier,
+      text: "哦哟当事人来了，有什么想法吗kkkk",
+    });
+    setExtras((e) => [...e, mine, ...(replier ? [reply] : [])]);
+    if (replier) pushNotice(`微信:${replier}回复了你`);
+    setDraft("");
+  };
+  return (
+    <div className="wx-moment-card">
+      <div className="wx-moment-head">
+        <Avatar name={item.sender} src={avatarOf(item.sender)} />
+        <div>
+          <strong>{item.sender}</strong>
+          <small>{item.time.slice(-5)}</small>
+        </div>
+      </div>
+      <p className="wx-moment-body">{item.body}</p>
+      {safeMedia(item.media) && (
+        <img
+          className="wx-moment-img"
+          loading="lazy"
+          alt={item.body}
+          src={safeMedia(item.media)}
+          onClick={() => p.onItem(item)}
+        />
+      )}
+      <div className="wx-moment-actions">
+        <button className={liked ? "liked" : ""} onClick={() => setLiked(!liked)}>
+          <Heart size={14} fill={liked ? "#df4444" : "none"} /> 赞
+        </button>
+        <button onClick={() => inputRef.current?.focus()}>
+          <MessageCircle size={14} /> 评论
+        </button>
+      </div>
+      {shownLikes.length > 0 && (
+        <div className="wx-moment-likes">
+          <Heart size={12} fill="#df4444" />
+          <span>{shownLikes.join("、")}</span>
+        </div>
+      )}
+      {allComments.length > 0 && (
+        <div className="wx-moment-comments">
+          {allComments.map((c, n) => (
+            <p key={n}>
+              {c.replyTo ? (
+                <>
+                  <b>{c.name}</b> 回复 <b>{c.replyTo}</b>：{c.text}
+                </>
+              ) : (
+                <>
+                  <b>{c.name}</b>：{c.text}
+                </>
+              )}
+            </p>
+          ))}
+        </div>
+      )}
+      <div className="wx-moment-input">
+        <input
+          ref={inputRef}
+          aria-label="评论"
+          value={draft}
+          placeholder="评论"
+          onChange={(e) => setDraft(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") submit();
+          }}
+        />
+        <button onClick={submit}>发送</button>
+      </div>
+    </div>
+  );
+}
 export function WeChatSkin(p: SkinProps) {
   const [tab, setTab] = useState("微信"),
     [query, setQuery] = useState(""),
-    [moments, setMoments] = useState(false),
+    [moments, setMoments] = useState(consumeMomentsJump()),
     [menu, setMenu] = useState(false),
     [searchOpen, setSearchOpen] = useState(false),
     [utility, setUtility] = useState("");
@@ -164,6 +288,7 @@ export function WeChatSkin(p: SkinProps) {
     "readThreads",
     [],
   );
+  useEffect(() => onMomentsJump(() => setMoments(true)), []);
   const conversations = [
     ...new Set(
       p.items
@@ -295,21 +420,25 @@ export function WeChatSkin(p: SkinProps) {
             <Camera size={32} />
             <span>朋友圈</span>
           </div>
-          {posts.map((i) => (
-            <button
-              key={i.id}
-              className="wx-moment-post"
-              onClick={() => p.onItem(i)}
-            >
-              <Avatar name={i.sender} />
-              <div>
-                <strong>{i.sender}</strong>
-                <p>{i.body}</p>
-                {i.media && <ItemMedia item={i} />}
-                <small>{i.time}</small>
-              </div>
-            </button>
-          ))}
+          {posts.map((i) =>
+            i.moment ? (
+              <MomentCard key={i.id} item={i} p={p} />
+            ) : (
+              <button
+                key={i.id}
+                className="wx-moment-post"
+                onClick={() => p.onItem(i)}
+              >
+                <Avatar name={i.sender} />
+                <div>
+                  <strong>{i.sender}</strong>
+                  <p>{i.body}</p>
+                  {i.media && <ItemMedia item={i} />}
+                  <small>{i.time}</small>
+                </div>
+              </button>
+            ),
+          )}
           {!posts.length && <p className="skin-empty">暂无朋友圈动态</p>}
           {p.creator && (
             <button className="phone-add" onClick={p.onAdd}>

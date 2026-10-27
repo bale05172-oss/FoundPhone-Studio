@@ -22,7 +22,7 @@ export function SystemNotifications({
 }: {
   notices: string[];
   apps: Work["apps"];
-  onOpen: (appId: string) => void;
+  onOpen: (appId: string, body?: string) => void;
   onDismiss: (index: number) => void;
   compact?: boolean;
 }) {
@@ -55,7 +55,7 @@ export function SystemNotifications({
             >
               <button
                 className="notice-open"
-                onClick={() => onOpen(n.appId)}
+                onClick={() => onOpen(n.appId, n.body)}
               >
                 <span className="notice-app-art">
                   <AppArtwork id={n.appId} />

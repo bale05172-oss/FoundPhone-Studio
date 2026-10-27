@@ -130,7 +130,7 @@ export function DeviceLock({
                 compact
                 notices={notices}
                 apps={work.apps}
-                onOpen={open}
+                onOpen={() => open()}
                 onDismiss={onDismiss}
               />
             )}

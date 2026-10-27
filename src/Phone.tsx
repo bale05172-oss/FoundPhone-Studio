@@ -6,10 +6,12 @@ import { useDeviceLayout } from "./launcher/layout";
 import "./launcher/launcher.css";
 import { NativeDetail, nativeDetailApps } from "./ios/Details";
 import "./ios/details.css";
+import { SystemNotifications, notificationContent } from "./SystemNotifications";
 import {
-  SystemNotifications,
-  notificationContent,
-} from "./SystemNotifications";
+  isMomentsNotice,
+  onNotice,
+  requestMomentsJump,
+} from "./momentsBus";
 import {
   readLauncherOrigin,
   AppWindow,
@@ -323,6 +325,18 @@ function PhoneRuntime({
     }
     if (!locked) noticesSeen.current = count;
   }, [s.notifications.length, locked, work.phone.notifications]);
+  useEffect(
+    () =>
+      onNotice((text) => {
+        if (creator) return;
+        update({
+          ...runtimeRef.current,
+          notifications: [...runtimeRef.current.notifications, text],
+        });
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
   const dismissNotice = (index: number) =>
     update({
       ...runtimeRef.current,
@@ -577,11 +591,14 @@ function PhoneRuntime({
                     <SystemNotifications
                       notices={s.notifications}
                       apps={work.apps}
-                      onOpen={(appId) => {
+                      onOpen={(appId, body) => {
                         setPanel("");
                         if (locked) beginUnlock();
-                        else if (installedApps.some((a) => a.id === appId))
-                          open(appId);
+                        else {
+                          if (isMomentsNotice(body ?? "")) requestMomentsJump();
+                          if (installedApps.some((a) => a.id === appId))
+                            open(appId);
+                        }
                       }}
                       onDismiss={dismissNotice}
                     />
@@ -741,8 +758,10 @@ function PhoneRuntime({
             <button
               className="device-banner"
               onClick={() => {
+                const n = notificationContent(banner, work.apps);
                 setBanner("");
-                setPanel("notification");
+                if (isMomentsNotice(n.body)) requestMomentsJump();
+                if (installedApps.some((a) => a.id === n.appId)) open(n.appId);
               }}
             >
               <AppIcon

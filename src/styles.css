@@ -4103,6 +4103,111 @@ label {
   width: 100%;
   margin-top: 8px;
 }
+.wx-moment-card {
+  padding: 18px 13px;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+}
+.wx-moment-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.wx-moment-head strong {
+  display: block;
+  color: #576b95;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.wx-moment-head small {
+  display: block;
+  color: #aaa;
+  font-size: 11px;
+  margin-top: 2px;
+}
+.wx-moment-body {
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 12px 0 0 0;
+  white-space: pre-wrap;
+  color: #222;
+}
+.wx-moment-img {
+  width: 100%;
+  border-radius: 6px;
+  margin-top: 12px;
+  cursor: zoom-in;
+}
+.wx-moment-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 26px;
+  margin-top: 12px;
+}
+.wx-moment-actions button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: 0;
+  color: #576b95;
+  font-size: 13px;
+  padding: 2px;
+}
+.wx-moment-actions button.liked {
+  color: #df4444;
+}
+.wx-moment-likes {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  background: #f7f7f7;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-top: 12px;
+  color: #333;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.wx-moment-comments {
+  background: #f7f7f7;
+  border-radius: 6px;
+  padding: 4px 12px;
+  margin-top: 6px;
+}
+.wx-moment-comments p {
+  font-size: 13px;
+  line-height: 2;
+  color: #222;
+  overflow-wrap: anywhere;
+}
+.wx-moment-comments b {
+  color: #576b95;
+  font-weight: 500;
+}
+.wx-moment-input {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.wx-moment-input input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  padding: 6px 12px;
+  font-size: 13px;
+  background: #f7f7f7;
+  outline: none;
+}
+.wx-moment-input button {
+  border: 0;
+  border-radius: 16px;
+  background: #07c160;
+  color: #fff;
+  font-size: 13px;
+  padding: 0 16px;
+}
 .skin-empty {
   padding: 35px 20px;
   text-align: center;
