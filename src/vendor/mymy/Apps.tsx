@@ -663,18 +663,23 @@ export function MymyX(p: SkinProps) {
     [expose, setExpose] = useState(false);
   const dms = p.items.filter((i) => i.folder === "私信");
   const exposePost = p.items.find((i) => i.id === "twitter-expose");
+  useEffect(() => {
+    if (localStorage.getItem("x-open-dm") === "1") {
+      localStorage.removeItem("x-open-dm");
+      const dm = p.items.find((i) => i.folder === "私信");
+      if (dm) {
+        setTab("私信");
+        setSelDm(dm);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const randName = () => "X用户" + (1000 + Math.floor(Math.random() * 9000));
   const shengReplies = [
-    "你闭嘴！！你根本配不上她，你知道我等了她多少年吗？！",
-    "呵，你以为你能得意多久？我已经把你和她的聊天记录全存下来了。",
-    "凭什么？凭什么你这种人可以站在她身边？！我不服！",
-    "我追了她七年，从她出道那天起就看着她……你算什么东西？",
-    "你以为我只有这一张牌吗？等着看吧，我会让你身败名裂。",
-    "她根本不会爱你，她只是玩玩你而已，清醒点吧！",
-    "呜呜呜……我看着她这么多年，她怎么可以谈恋爱……怎么可以和你……",
-    "你最好祈祷我找不到你，否则……呵呵。",
-    "呵，我曝定了，让全世界都知道你这种人不配和她在一起！",
-    "你知道她最爱的颜色吗？你知道她的生日习惯吗？你什么都不懂，凭什么？",
+    "啊西八，这女人居然这么嚣张。",
+    "哎一古，如果不想毁了她的事业就离她远点",
+    "你有哪点值得喜欢的？",
+    "可恶，继续嘴硬吧。",
   ];
   const sendDm = () => {
     const t = dmDraft.trim();
@@ -855,7 +860,8 @@ export function MymyX(p: SkinProps) {
                       onClick={() => toggle(i.id, reposts, setReposts)}
                     >
                       <Repeat2 />
-                      {reposts.includes(i.id) ? 1 : 0}
+                      {(Number(i.meta.reposts) || 0) +
+                        (reposts.includes(i.id) ? 1 : 0)}
                     </button>
                     <button
                       aria-label={"点赞" + i.title}

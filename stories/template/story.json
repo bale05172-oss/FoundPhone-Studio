@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "锁屏密码 0329，壁纸为暮色水边；微信联系人裴柱现；KKT 聊天后裴柱现来电，可接听或拒接。",
-  "revision": 27,
+  "revision": 28,
   "phone": {
     "owner": "机主",
     "date": "2026-10-24",
@@ -1108,6 +1108,40 @@
     "tiktok": [],
     "twitter": [
       {
+        "id": "twitter-talk-2",
+        "title": "X用户4522",
+        "body": "有个人莫名其妙的，没有任何证据的纯文字料，结果底下居然还真有人信了。",
+        "sender": "X用户4522",
+        "kind": "post",
+        "folder": "时间线",
+        "media": "",
+        "time": "2026-10-24 21:55",
+        "meta": {
+          "handle": "user4522",
+          "views": "474",
+          "reposts": "3390"
+        },
+        "comments": [],
+        "likes": 6230
+      },
+      {
+        "id": "twitter-talk-5",
+        "title": "X用户9101",
+        "body": "那个用户的id有点眼熟啊……她不是个著名的追私吗？先观望一波，万一她真有实锤呢？",
+        "sender": "X用户9101",
+        "kind": "post",
+        "folder": "时间线",
+        "media": "",
+        "time": "2026-10-24 21:58",
+        "meta": {
+          "handle": "user9101",
+          "views": "885",
+          "reposts": "3960"
+        },
+        "comments": [],
+        "likes": 7420
+      },
+      {
         "id": "twitter-post-1",
         "title": "X用户2309",
         "body": "今天又去看樱花了，真的好美，一个人也很快乐🌸",
@@ -1118,53 +1152,11 @@
         "time": "2026-10-24 18:02",
         "meta": {
           "handle": "user2309",
-          "views": "1.2万"
+          "views": "1.2万",
+          "reposts": "1520"
         },
-        "comments": []
-      },
-      {
-        "id": "twitter-post-2",
-        "title": "X用户7745",
-        "body": "谁懂啊，上班第三天就想辞职了……",
-        "sender": "X用户7745",
-        "kind": "post",
-        "folder": "时间线",
-        "media": "",
-        "time": "2026-10-24 19:31",
-        "meta": {
-          "handle": "user7745",
-          "views": "856"
-        },
-        "comments": []
-      },
-      {
-        "id": "twitter-post-3",
-        "title": "X用户5511",
-        "body": "深夜emo，单曲循环中，耳机里的世界才是真的。",
-        "sender": "X用户5511",
-        "kind": "post",
-        "folder": "时间线",
-        "media": "",
-        "time": "2026-10-24 20:47",
-        "meta": {
-          "handle": "user5511",
-          "views": "3021"
-        },
-        "comments": []
-      },
-      {
-        "id": "twitter-dm-sisheng",
-        "title": "X用户8412",
-        "body": "我已经发现你和裴柱现之间的事情了，等着被我曝光吧狗女女！居然谈了这么久。这些年的情爱与时光，终究是错付了！",
-        "sender": "X用户8412",
-        "kind": "text",
-        "folder": "私信",
-        "media": "",
-        "time": "2026-10-24 21:52",
-        "meta": {
-          "handle": "user8412"
-        },
-        "comments": []
+        "comments": [],
+        "likes": 3214
       },
       {
         "id": "twitter-expose",
@@ -1177,7 +1169,8 @@
         "time": "2026-10-24 21:53",
         "meta": {
           "handle": "user8412",
-          "views": "36.7万"
+          "views": "36.7万",
+          "reposts": "12800"
         },
         "comments": [
           "？",
@@ -1203,37 +1196,8 @@
           "？",
           "纳尼",
           "！我天哪"
-        ]
-      },
-      {
-        "id": "twitter-talk-1",
-        "title": "X用户1107",
-        "body": "x上怎么有个人在那发疯啊？笑得我肚子疼。",
-        "sender": "X用户1107",
-        "kind": "post",
-        "folder": "时间线",
-        "media": "",
-        "time": "2026-10-24 21:54",
-        "meta": {
-          "handle": "user1107",
-          "views": "337"
-        },
-        "comments": []
-      },
-      {
-        "id": "twitter-talk-2",
-        "title": "X用户4522",
-        "body": "有个人莫名其妙的，没有任何证据的纯文字料，结果底下居然还真有人信了。",
-        "sender": "X用户4522",
-        "kind": "post",
-        "folder": "时间线",
-        "media": "",
-        "time": "2026-10-24 21:55",
-        "meta": {
-          "handle": "user4522",
-          "views": "474"
-        },
-        "comments": []
+        ],
+        "likes": 36200
       },
       {
         "id": "twitter-talk-3",
@@ -1246,37 +1210,57 @@
         "time": "2026-10-24 21:56",
         "meta": {
           "handle": "user8833",
-          "views": "611"
+          "views": "611",
+          "reposts": "2240"
         },
-        "comments": []
+        "comments": [],
+        "likes": 5110
       },
       {
-        "id": "twitter-talk-4",
-        "title": "X用户2266",
-        "body": "所以我们来李涛一下，裴柱现是不是女同？",
-        "sender": "X用户2266",
+        "id": "twitter-talk-1",
+        "title": "X用户1107",
+        "body": "x上怎么有个人在那发疯啊？笑得我肚子疼。",
+        "sender": "X用户1107",
         "kind": "post",
         "folder": "时间线",
         "media": "",
-        "time": "2026-10-24 21:57",
+        "time": "2026-10-24 21:54",
         "meta": {
-          "handle": "user2266",
-          "views": "748"
+          "handle": "user1107",
+          "views": "337",
+          "reposts": "2100"
         },
-        "comments": []
+        "comments": [],
+        "likes": 4560
       },
       {
-        "id": "twitter-talk-5",
-        "title": "X用户9101",
-        "body": "那个用户的id有点眼熟啊……她不是个著名的追私吗？先观望一波，万一她真有实锤呢？",
-        "sender": "X用户9101",
+        "id": "twitter-talk-8",
+        "title": "我",
+        "body": "对没错，我就是那个裴柱现传说中的女朋友。",
+        "sender": "我",
         "kind": "post",
         "folder": "时间线",
         "media": "",
-        "time": "2026-10-24 21:58",
+        "time": "2026-10-24 22:03",
         "meta": {
-          "handle": "user9101",
-          "views": "885"
+          "handle": "me0001",
+          "views": "21.8万",
+          "reposts": "9880"
+        },
+        "likes": 21000,
+        "comments": []
+      },
+      {
+        "id": "twitter-dm-sisheng",
+        "title": "X用户8412",
+        "body": "我已经发现你和裴柱现之间的事情了，等着被我曝光吧狗女女！居然谈了这么久。这些年的情爱与时光，终究是错付了！",
+        "sender": "X用户8412",
+        "kind": "text",
+        "folder": "私信",
+        "media": "",
+        "time": "2026-10-24 21:52",
+        "meta": {
+          "handle": "user8412"
         },
         "comments": []
       },
@@ -1291,9 +1275,79 @@
         "time": "2026-10-24 21:59",
         "meta": {
           "handle": "user6674",
-          "views": "1022"
+          "views": "1022",
+          "reposts": "8450"
         },
+        "comments": [],
+        "likes": 12900
+      },
+      {
+        "id": "twitter-talk-4",
+        "title": "X用户2266",
+        "body": "所以我们来李涛一下，裴柱现是不是女同？",
+        "sender": "X用户2266",
+        "kind": "post",
+        "folder": "时间线",
+        "media": "",
+        "time": "2026-10-24 21:57",
+        "meta": {
+          "handle": "user2266",
+          "views": "748",
+          "reposts": "5120"
+        },
+        "comments": [],
+        "likes": 8830
+      },
+      {
+        "id": "twitter-post-3",
+        "title": "X用户5511",
+        "body": "深夜emo，单曲循环中，耳机里的世界才是真的。",
+        "sender": "X用户5511",
+        "kind": "post",
+        "folder": "时间线",
+        "media": "",
+        "time": "2026-10-24 20:47",
+        "meta": {
+          "handle": "user5511",
+          "views": "3021",
+          "reposts": "4180"
+        },
+        "comments": [],
+        "likes": 9402
+      },
+      {
+        "id": "twitter-talk-7",
+        "title": "X用户1245",
+        "body": "这谁能绷住？",
+        "sender": "X用户1245",
+        "kind": "post",
+        "folder": "时间线",
+        "media": "",
+        "time": "2026-10-24 22:01",
+        "meta": {
+          "handle": "user1245",
+          "views": "1.4万",
+          "reposts": "1460"
+        },
+        "likes": 3350,
         "comments": []
+      },
+      {
+        "id": "twitter-post-2",
+        "title": "X用户7745",
+        "body": "谁懂啊，上班第三天就想辞职了……",
+        "sender": "X用户7745",
+        "kind": "post",
+        "folder": "时间线",
+        "media": "",
+        "time": "2026-10-24 19:31",
+        "meta": {
+          "handle": "user7745",
+          "views": "856",
+          "reposts": "2430"
+        },
+        "comments": [],
+        "likes": 5871
       }
     ],
     "youtube": [],
@@ -1865,6 +1919,21 @@
           "type": "notification",
           "key": "",
           "value": "微信:裴柱现发了一条朋友圈"
+        }
+      ],
+      "next": []
+    },
+    {
+      "id": "n-xdm-pop",
+      "label": "挂断后弹出私生私信通知",
+      "event": "callEnded",
+      "target": "call-peizhuxian",
+      "once": true,
+      "actions": [
+        {
+          "type": "notification",
+          "key": "",
+          "value": "X:X用户8412：我已经发现你和裴柱现之间的事情了，等着被我曝光吧狗女女！居然谈了这么久。这些年的情爱与时光，终究是错付了！"
         }
       ],
       "next": []

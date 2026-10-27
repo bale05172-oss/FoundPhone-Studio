@@ -596,6 +596,8 @@ function PhoneRuntime({
                         if (locked) beginUnlock();
                         else {
                           if (isMomentsNotice(body ?? "")) requestMomentsJump();
+                          if ((body ?? "").includes("X用户8412"))
+                            localStorage.setItem("x-open-dm", "1");
                           if (installedApps.some((a) => a.id === appId))
                             open(appId);
                         }
@@ -761,6 +763,8 @@ function PhoneRuntime({
                 const n = notificationContent(banner, work.apps);
                 setBanner("");
                 if (isMomentsNotice(n.body)) requestMomentsJump();
+                if (n.body.includes("X用户8412"))
+                  localStorage.setItem("x-open-dm", "1");
                 if (installedApps.some((a) => a.id === n.appId)) open(n.appId);
               }}
             >
