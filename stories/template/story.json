@@ -3,7 +3,7 @@
   "id": "ui-test-phone-v2",
   "title": "捡手机",
   "description": "锁屏密码 0329，壁纸为暮色水边；微信联系人裴柱现；KKT 聊天后裴柱现来电，可接听或拒接。",
-  "revision": 24,
+  "revision": 25,
   "phone": {
     "owner": "机主",
     "date": "2026-10-24",
@@ -1070,7 +1070,36 @@
     "redbook": [],
     "douyin": [],
     "bilibili": [],
-    "alipay": [],
+    "alipay": [
+      {
+        "id": "alipay-bill-1",
+        "title": "裴柱现",
+        "body": "姐姐请你吃饭",
+        "sender": "裴柱现",
+        "kind": "note",
+        "folder": "账单",
+        "media": "",
+        "time": "2026-10-24 22:10",
+        "meta": {
+          "amount": "+13140元",
+          "status": "转账成功"
+        }
+      },
+      {
+        "id": "alipay-bill-2",
+        "title": "裴柱现",
+        "body": "零花钱",
+        "sender": "裴柱现",
+        "kind": "note",
+        "folder": "账单",
+        "media": "",
+        "time": "2026-10-24 22:11",
+        "meta": {
+          "amount": "+52000元",
+          "status": "转账成功"
+        }
+      }
+    ],
     "taobao": [],
     "netease": [],
     "delivery": [],

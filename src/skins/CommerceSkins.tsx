@@ -68,6 +68,7 @@ export function AlipaySkin(p: Props) {
               <Wallet size={27} />
               <div>
                 <strong>{i.title}</strong>
+                {i.body && <p className="alipay-bill-memo">{i.body}</p>}
                 <small>
                   {meta(i, "merchant", i.sender)} · {i.time.slice(5, 16)}
                 </small>

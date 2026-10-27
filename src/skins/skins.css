@@ -3531,6 +3531,11 @@
   font-size: 12px;
   font-weight: 500;
 }
+.alipay-bill-memo {
+  font-size: 10px;
+  color: #666;
+  margin: 1px 0;
+}
 .alipay-bill small {
   font-size: 8px;
   color: #aaa;
