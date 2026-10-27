@@ -661,6 +661,14 @@ export function MymyX(p: SkinProps) {
     [dmMsg, setDmMsg] = useSkinState<string[]>(p, "mymyXDm", []),
     [dmDraft, setDmDraft] = useState(""),
     [expose, setExpose] = useState(false);
+  const [myPosts, setMyPosts] = useState<Item[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem("x-myposts") || "[]") as Item[];
+    } catch {
+      return [];
+    }
+  });
+  const [postDraft, setPostDraft] = useState("");
   const dms = p.items.filter((i) => i.folder === "私信");
   const exposePost = p.items.find((i) => i.id === "twitter-expose");
   useEffect(() => {
@@ -675,6 +683,53 @@ export function MymyX(p: SkinProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const randName = () => "X用户" + (1000 + Math.floor(Math.random() * 9000));
+  const myPostComments = [
+    "来看嫂子了",
+    "捉",
+    "主播长啥样啊？能拿下irene",
+    "说说你们的恋爱故事，你是怎么做到的？",
+    "求教程，我学学，我们一起做嫂子",
+    "真的假的啊？",
+    "有实锤吗？",
+    "裴柱现体力怎么样？谁1谁0，谁攻谁受？",
+    "废话，裴柱现是大攻攻，谁都不许嬷我老攻好吗好的。",
+    "裴柱现是受裴柱现是受裴柱现是受",
+    "嫂子说说呗，我愿意付费吃瓜",
+    "其实女同挺好的吧！",
+    "主播主播她们说的是真的吗？",
+    "裴柱现私下里是什么样子？粉丝好奇",
+    "喂！你们的重点都跑偏了吧，难道重点不是裴柱现tla了吗？",
+    "我也想跟裴柱现tla，我还有机会，坐等你俩分手",
+    "西八小崽子净说胡话",
+    "？",
+    "我靠这是嫂子发文吗？",
+    "前排吃瓜",
+    "我破防了……",
+    "嫂子我们来私聊，我相信你肯定憋得慌，我保证不跟其他人说。",
+    "我去，之前那些原来是情侣同款",
+    "早就有迹可寻了……",
+    "kkkk这肯定是假的……",
+  ];
+  const publish = () => {
+    const t = postDraft.trim();
+    if (!t) return;
+    const post: Item = makeItem({
+      id: "x-mypost-" + Date.now(),
+      title: "我",
+      sender: "我",
+      body: t,
+      kind: "post",
+      folder: "时间线",
+      time: new Date().toTimeString().slice(0, 5),
+      meta: { handle: "me0001", views: "52.8万", reposts: "6350" },
+      likes: 15600,
+      comments: myPostComments.map((c) => randName() + "：" + c),
+    });
+    const next = [post, ...myPosts];
+    setMyPosts(next);
+    localStorage.setItem("x-myposts", JSON.stringify(next));
+    setPostDraft("");
+  };
   const shengReplies = [
     "啊西八，这女人居然这么嚣张。",
     "哎一古，如果不想毁了她的事业就离她远点",
@@ -813,7 +868,23 @@ export function MymyX(p: SkinProps) {
           ))}
         {tab !== "私信" && (
         <div className="kzxfd">
-          {p.items
+          <div className="kzxcompose">
+            <Avatar name="我" />
+            <input
+              placeholder="有什么新鲜事？"
+              value={postDraft}
+              onChange={(e) => setPostDraft(e.target.value)}
+              aria-label="发帖内容"
+            />
+            <button
+              aria-label="发布"
+              disabled={!postDraft.trim()}
+              onClick={publish}
+            >
+              发布
+            </button>
+          </div>
+          {[...myPosts, ...p.items]
             .filter((i) => (i.title + i.body).includes(query))
             .map((i) => (
               <article className="kzxt" key={i.id}>

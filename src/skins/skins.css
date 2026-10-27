@@ -4356,4 +4356,36 @@
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+/* X 发帖栏 */
+.kzxcompose {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.kzxcompose input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #eee;
+  font-size: 14px;
+  padding: 6px 0;
+  outline: none;
+}
+.kzxcompose input::placeholder {
+  color: #777;
+}
+.kzxcompose button {
+  background: #1d9bf0;
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 18px;
+}
+.kzxcompose button:disabled {
+  opacity: 0.5;
+}
 
