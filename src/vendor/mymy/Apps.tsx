@@ -145,7 +145,14 @@ export function MymyKakao(p: SkinProps) {
                     className={"kzbub" + (m.media ? " kzimg" : "")}
                     onClick={() => m.meta.local !== "true" && read(p, m)}
                   >
-                    {m.media ? <Media item={m} /> : m.body}
+                    {m.media ? (
+                      <>
+                        <Media item={m} />
+                        {m.body ? <span className="kzcap">{m.body}</span> : null}
+                      </>
+                    ) : (
+                      m.body
+                    )}
                   </button>
                   {!m.outgoing && run.last && (
                     <span className="kzt">{m.time.slice(-5)}</span>
